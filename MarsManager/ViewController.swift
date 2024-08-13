@@ -52,11 +52,41 @@ class ViewController:
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            if let tokenData = appleIDCredential.identityToken,
-                let strToken = String(data: tokenData, encoding: .utf8){
-                logger.info("logged in: \(strToken)")
-            } else {
-                logger.error("empty identity token")
+            guard let tokenData = appleIDCredential.identityToken else {
+                logger.error("identity token is nil")
+                return
+            }
+            guard let strToken = String(data: tokenData, encoding: .utf8) else {
+                logger.error("can't create token string")
+                return
+            }
+            
+            logger.info("logged in: \(strToken)")
+            
+            Task {
+                self.activityView.isHidden = false
+                defer { self.activityView.isHidden = true }
+                
+                guard let baseURL = URL(string: "https://mars.blockthem.xyz") else {
+                    logger.error("can't create base url")
+                    return
+                }
+                
+                let api = MarsAPIService(baseUrl: baseURL, token: strToken)
+                do {
+                    let response = try await api.login()
+                    logger.info("logged in with \(response.user.nickname) (\(response.user.color.rawValue))")
+                } catch let rd as APIError {
+                    switch rd {
+                    case .unknown(let message):
+                        logger.error("unknown error: \(message)")
+                    case .responseDecode(let data, _):
+                        let dataStr = String(data: data, encoding: .utf8) ?? "<undecodable data>"
+                        logger.error("decode error, data: \(dataStr)")
+                    }
+                } catch let error {
+                    logger.info("error: \(error.localizedDescription)")
+                }
             }
         
         default:
