@@ -15,6 +15,7 @@ class ViewController:
     ASAuthorizationControllerDelegate
 {
     @IBOutlet var signInBaseView: UIView!
+    @IBOutlet var activityView: UIActivityIndicatorView!
     
     private let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
@@ -24,6 +25,8 @@ class ViewController:
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        activityView.isHidden = true
         
         let appleButton = ASAuthorizationAppleIDButton()
         appleButton.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchUpInside)

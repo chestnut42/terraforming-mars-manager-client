@@ -13,6 +13,8 @@
 		75741F242C69E2DA008C07D7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 75741F232C69E2DA008C07D7 /* Base */; };
 		75741F262C69E2DE008C07D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75741F252C69E2DE008C07D7 /* Assets.xcassets */; };
 		75741F292C69E2DE008C07D7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 75741F282C69E2DE008C07D7 /* Base */; };
+		75904E622C6B327C00E148D7 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75904E612C6B327C00E148D7 /* Service.swift */; };
+		75904E642C6B331F00E148D7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75904E632C6B331F00E148D7 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		75741F282C69E2DE008C07D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		75741F2A2C69E2DE008C07D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		758B221F2C6A8C81006D1CFB /* MarsManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MarsManager.entitlements; sourceTree = "<group>"; };
+		75904E612C6B327C00E148D7 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		75904E632C6B331F00E148D7 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,7 @@
 		75741F1B2C69E2D9008C07D7 /* MarsManager */ = {
 			isa = PBXGroup;
 			children = (
+				75904E602C6B325800E148D7 /* API */,
 				758B221F2C6A8C81006D1CFB /* MarsManager.entitlements */,
 				75741F1C2C69E2D9008C07D7 /* AppDelegate.swift */,
 				75741F1E2C69E2D9008C07D7 /* SceneDelegate.swift */,
@@ -67,6 +72,15 @@
 				75741F2A2C69E2DE008C07D7 /* Info.plist */,
 			);
 			path = MarsManager;
+			sourceTree = "<group>";
+		};
+		75904E602C6B325800E148D7 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				75904E612C6B327C00E148D7 /* Service.swift */,
+				75904E632C6B331F00E148D7 /* Model.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,7 +154,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75904E642C6B331F00E148D7 /* Model.swift in Sources */,
 				75741F212C69E2D9008C07D7 /* ViewController.swift in Sources */,
+				75904E622C6B327C00E148D7 /* Service.swift in Sources */,
 				75741F1D2C69E2D9008C07D7 /* AppDelegate.swift in Sources */,
 				75741F1F2C69E2D9008C07D7 /* SceneDelegate.swift in Sources */,
 			);
