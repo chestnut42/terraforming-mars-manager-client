@@ -24,16 +24,39 @@
                                     <constraint firstAttribute="height" constant="50" id="zKi-N7-3tm"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="fzh-WJ-4qK">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                            </activityIndicatorView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ylp-Ie-1Fv">
+                                <rect key="frame" x="76.666666666666686" y="496" width="240" height="260"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="9rh-4v-PrK"/>
+                                    <constraint firstAttribute="height" constant="260" id="JRM-hQ-15K"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fTQ-K2-jkj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="fzh-WJ-4qK" firstAttribute="trailing" secondItem="fTQ-K2-jkj" secondAttribute="trailing" id="CYE-7v-6UV"/>
                             <constraint firstItem="aaC-Wh-ZZl" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Cqx-TS-QLK"/>
+                            <constraint firstItem="ylp-Ie-1Fv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EbW-14-w3U"/>
                             <constraint firstItem="aaC-Wh-ZZl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="J28-Ss-Drg"/>
+                            <constraint firstItem="fzh-WJ-4qK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="OZq-wN-wGo"/>
+                            <constraint firstItem="ylp-Ie-1Fv" firstAttribute="top" secondItem="aaC-Wh-ZZl" secondAttribute="bottom" constant="45" id="aAA-BZ-6i3"/>
+                            <constraint firstItem="fzh-WJ-4qK" firstAttribute="leading" secondItem="fTQ-K2-jkj" secondAttribute="leading" id="ejS-mF-gnb"/>
+                            <constraint firstAttribute="bottom" secondItem="fzh-WJ-4qK" secondAttribute="bottom" id="kJc-8G-o0E"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityView" destination="fzh-WJ-4qK" id="qDo-bS-eyB"/>
                         <outlet property="signInBaseView" destination="aaC-Wh-ZZl" id="kgw-gT-diq"/>
+                        <outlet property="statusText" destination="ylp-Ie-1Fv" id="ivt-2M-i2a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -42,11 +65,17 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
