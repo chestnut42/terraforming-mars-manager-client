@@ -15,8 +15,19 @@
 		75741F292C69E2DE008C07D7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 75741F282C69E2DE008C07D7 /* Base */; };
 		75904E622C6B327C00E148D7 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75904E612C6B327C00E148D7 /* Service.swift */; };
 		75904E642C6B331F00E148D7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75904E632C6B331F00E148D7 /* Model.swift */; };
+		75E793C42C6D236A0068BB90 /* ErrorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E793C32C6D236A0068BB90 /* ErrorsTests.swift */; };
 		75F9DFBF2C6BFC4F0017A0CD /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F9DFBE2C6BFC4F0017A0CD /* Errors.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		75E793C52C6D236A0068BB90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75741F112C69E2D9008C07D7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75741F182C69E2D9008C07D7;
+			remoteInfo = MarsManager;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		75741F192C69E2D9008C07D7 /* MarsManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarsManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,11 +41,20 @@
 		758B221F2C6A8C81006D1CFB /* MarsManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MarsManager.entitlements; sourceTree = "<group>"; };
 		75904E612C6B327C00E148D7 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		75904E632C6B331F00E148D7 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		75E793C12C6D236A0068BB90 /* MarsManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarsManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		75E793C32C6D236A0068BB90 /* ErrorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorsTests.swift; sourceTree = "<group>"; };
 		75F9DFBE2C6BFC4F0017A0CD /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		75741F162C69E2D9008C07D7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75E793BE2C6D236A0068BB90 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -48,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				75741F1B2C69E2D9008C07D7 /* MarsManager */,
+				75E793C22C6D236A0068BB90 /* MarsManagerTests */,
 				75741F1A2C69E2D9008C07D7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				75741F192C69E2D9008C07D7 /* MarsManager.app */,
+				75E793C12C6D236A0068BB90 /* MarsManagerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -86,6 +108,22 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		75E793C22C6D236A0068BB90 /* MarsManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				75E793CA2C6D24170068BB90 /* API */,
+			);
+			path = MarsManagerTests;
+			sourceTree = "<group>";
+		};
+		75E793CA2C6D24170068BB90 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				75E793C32C6D236A0068BB90 /* ErrorsTests.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,6 +144,24 @@
 			productReference = 75741F192C69E2D9008C07D7 /* MarsManager.app */;
 			productType = "com.apple.product-type.application";
 		};
+		75E793C02C6D236A0068BB90 /* MarsManagerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75E793C72C6D236A0068BB90 /* Build configuration list for PBXNativeTarget "MarsManagerTests" */;
+			buildPhases = (
+				75E793BD2C6D236A0068BB90 /* Sources */,
+				75E793BE2C6D236A0068BB90 /* Frameworks */,
+				75E793BF2C6D236A0068BB90 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				75E793C62C6D236A0068BB90 /* PBXTargetDependency */,
+			);
+			name = MarsManagerTests;
+			productName = MarsManagerTests;
+			productReference = 75E793C12C6D236A0068BB90 /* MarsManagerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -118,6 +174,10 @@
 				TargetAttributes = {
 					75741F182C69E2D9008C07D7 = {
 						CreatedOnToolsVersion = 15.4;
+					};
+					75E793C02C6D236A0068BB90 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 75741F182C69E2D9008C07D7;
 					};
 				};
 			};
@@ -135,6 +195,7 @@
 			projectRoot = "";
 			targets = (
 				75741F182C69E2D9008C07D7 /* MarsManager */,
+				75E793C02C6D236A0068BB90 /* MarsManagerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -147,6 +208,13 @@
 				75741F262C69E2DE008C07D7 /* Assets.xcassets in Resources */,
 				75741F292C69E2DE008C07D7 /* Base in Resources */,
 				75741F242C69E2DA008C07D7 /* Base in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75E793BF2C6D236A0068BB90 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,7 +234,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		75E793BD2C6D236A0068BB90 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75E793C42C6D236A0068BB90 /* ErrorsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		75E793C62C6D236A0068BB90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75741F182C69E2D9008C07D7 /* MarsManager */;
+			targetProxy = 75E793C52C6D236A0068BB90 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		75741F222C69E2DA008C07D7 /* Main.storyboard */ = {
@@ -377,6 +461,42 @@
 			};
 			name = Release;
 		};
+		75E793C82C6D236A0068BB90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S7CBCPG9P9;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.blockthem.MarsManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MarsManager.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MarsManager";
+			};
+			name = Debug;
+		};
+		75E793C92C6D236A0068BB90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S7CBCPG9P9;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.blockthem.MarsManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MarsManager.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MarsManager";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -394,6 +514,15 @@
 			buildConfigurations = (
 				75741F2E2C69E2DE008C07D7 /* Debug */,
 				75741F2F2C69E2DE008C07D7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75E793C72C6D236A0068BB90 /* Build configuration list for PBXNativeTarget "MarsManagerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75E793C82C6D236A0068BB90 /* Debug */,
+				75E793C92C6D236A0068BB90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

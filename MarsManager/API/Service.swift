@@ -13,7 +13,7 @@ struct MarsAPIService {
     
     func login() async throws -> LoginResponse {
         guard let url = URL(string: "/manager/api/v1/login", relativeTo: baseUrl) else {
-            throw APIError.unknown(message: "can't create a URL")
+            throw APIError.undefined(message: "can't create a URL")
         }
         
         let bodyData = try JSONEncoder().encode(LoginRequest())
@@ -26,7 +26,7 @@ struct MarsAPIService {
         do {
             return try JSONDecoder().decode(LoginResponse.self, from: data)
         } catch let error {
-            throw APIError.responseDecode(data: data, cause: error)
+            throw APIError.decode(data: data, cause: error)
         }
     }
 }

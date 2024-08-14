@@ -16,6 +16,7 @@ class ViewController:
 {
     @IBOutlet var signInBaseView: UIView!
     @IBOutlet var activityView: UIActivityIndicatorView!
+    @IBOutlet var statusText: UITextView!
     
     private let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
@@ -50,52 +51,49 @@ class ViewController:
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        switch authorization.credential {
-        case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            guard let tokenData = appleIDCredential.identityToken else {
-                logger.error("identity token is nil")
-                return
-            }
-            guard let strToken = String(data: tokenData, encoding: .utf8) else {
-                logger.error("can't create token string")
-                return
-            }
+        do {
+            let token = try self.parseIdentityToken(authorization: authorization)
+            logger.info("logged in: \(token)")
             
-            logger.info("logged in: \(strToken)")
+            guard let baseURL = URL(string: "https://mars.blockthem.xyz") else {
+                throw APIError.undefined(message: "can't create base url")
+            }
             
             Task {
                 self.activityView.isHidden = false
                 defer { self.activityView.isHidden = true }
                 
-                guard let baseURL = URL(string: "https://mars.blockthem.xyz") else {
-                    logger.error("can't create base url")
-                    return
-                }
-                
-                let api = MarsAPIService(baseUrl: baseURL, token: strToken)
+                let api = MarsAPIService(baseUrl: baseURL, token: token)
                 do {
                     let response = try await api.login()
-                    logger.info("logged in with \(response.user.nickname) (\(response.user.color.rawValue))")
-                } catch let rd as APIError {
-                    switch rd {
-                    case .unknown(let message):
-                        logger.error("unknown error: \(message)")
-                    case .responseDecode(let data, _):
-                        let dataStr = String(data: data, encoding: .utf8) ?? "<undecodable data>"
-                        logger.error("decode error, data: \(dataStr)")
-                    }
+                    logger.info("logged in with \(response.user.nickname) <\(response.user.id)> (\(response.user.color.rawValue))")
                 } catch let error {
-                    logger.info("error: \(error.localizedDescription)")
+                    self.statusText.text = error.localizedDescription
                 }
             }
-        
-        default:
-            logger.error("unexpected credential type")
+        } catch let error {
+            self.statusText.text = error.localizedDescription
         }
     }
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: any Error) {
         logger.error("authorization failed: \(error)")
+    }
+    
+    func parseIdentityToken(authorization: ASAuthorization) throws  -> String {
+        switch authorization.credential {
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            guard let tokenData = appleIDCredential.identityToken else {
+                throw APIError.undefined(message: "authorization does not have identity token")
+            }
+            guard let strToken = String(data: tokenData, encoding: .utf8) else {
+                throw APIError.undefined(message: "can't convert identity token to string")
+            }
+            
+            return strToken
+        default:
+            throw APIError.undefined(message: "unexpected credential type")
+        }
     }
 }
 
