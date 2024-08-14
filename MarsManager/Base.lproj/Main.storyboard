@@ -56,7 +56,7 @@
                     <connections>
                         <outlet property="activityView" destination="fzh-WJ-4qK" id="qDo-bS-eyB"/>
                         <outlet property="signInBaseView" destination="aaC-Wh-ZZl" id="kgw-gT-diq"/>
-                        <outlet property="statusText" destination="ylp-Ie-1Fv" id="nI6-fV-FtW"/>
+                        <outlet property="statusText" destination="ylp-Ie-1Fv" id="ivt-2M-i2a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
