@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import os
 
 enum GameListData {
     case Message(String)
@@ -37,6 +38,11 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
             self.tableView.reloadData()
         }
     }
+    
+    private let logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: GameListController.self)
+    )
     
     func playButtonPressed(on cell: GameViewCell) {
         if let url = cell.game?.playURL {

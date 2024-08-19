@@ -57,7 +57,7 @@
                         <outlet property="activityView" destination="fzh-WJ-4qK" id="qDo-bS-eyB"/>
                         <outlet property="signInBaseView" destination="aaC-Wh-ZZl" id="kgw-gT-diq"/>
                         <outlet property="statusText" destination="ylp-Ie-1Fv" id="ivt-2M-i2a"/>
-                        <segue destination="beh-eP-ar8" kind="show" identifier="StartToTab" id="syA-ej-lAV"/>
+                        <segue destination="beh-eP-ar8" kind="presentation" identifier="StartToTab" modalPresentationStyle="overFullScreen" id="syA-ej-lAV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -69,7 +69,7 @@
             <objects>
                 <viewController id="3iN-Ub-YUo" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hRJ-Ed-UEv">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="iec-Pd-Bzq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -85,7 +85,7 @@
             <objects>
                 <tableViewController id="BfT-aB-KG0" customClass="GameListController" customModule="MarsManager" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="GzU-EM-oZl">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -158,8 +158,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="3iN-Ub-YUo" kind="relationship" relationship="viewControllers" id="H8O-Tw-UiY"/>
-                        <segue destination="BfT-aB-KG0" kind="relationship" relationship="viewControllers" id="Pyk-bZ-akz"/>
+                        <segue destination="BfT-aB-KG0" kind="relationship" relationship="viewControllers" id="eu3-P3-wgv"/>
+                        <segue destination="3iN-Ub-YUo" kind="relationship" relationship="viewControllers" id="jKw-A4-2zP"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cvl-V2-uyP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

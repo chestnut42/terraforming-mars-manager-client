@@ -70,7 +70,6 @@ class SignInViewController:
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         do {
             let token = try self.parseIdentityToken(authorization: authorization)
-            logger.info("logged in: \(token)")
             
             guard let baseURL = URL(string: "https://mars.blockthem.xyz") else {
                 throw APIError.undefined(message: "can't create base url")
