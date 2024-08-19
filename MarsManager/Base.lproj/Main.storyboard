@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Sign In View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MarsManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SignInViewController" customModule="MarsManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -57,14 +57,68 @@
                         <outlet property="activityView" destination="fzh-WJ-4qK" id="qDo-bS-eyB"/>
                         <outlet property="signInBaseView" destination="aaC-Wh-ZZl" id="kgw-gT-diq"/>
                         <outlet property="statusText" destination="ylp-Ie-1Fv" id="ivt-2M-i2a"/>
+                        <segue destination="beh-eP-ar8" kind="show" identifier="StartToTab" id="syA-ej-lAV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="130.53435114503816" y="-2.1126760563380285"/>
         </scene>
+        <!--Profile-->
+        <scene sceneID="cAm-MG-RLp">
+            <objects>
+                <viewController id="3iN-Ub-YUo" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hRJ-Ed-UEv">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="iec-Pd-Bzq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Profile" image="person.crop.circle" catalog="system" id="Vb4-pb-30r"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IUf-kE-6BR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2294" y="322"/>
+        </scene>
+        <!--Games-->
+        <scene sceneID="VYI-n2-uhq">
+            <objects>
+                <viewController id="mAc-rt-C2a" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6qp-jl-H3r">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="BL1-Vx-tVR"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Games" image="folder" catalog="system" id="IMp-F4-Lga"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aKE-dM-NuH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2294" y="-287"/>
+        </scene>
+        <!--Main Tab Bar Controller-->
+        <scene sceneID="XB5-6g-mPM">
+            <objects>
+                <tabBarController id="beh-eP-ar8" customClass="MainTabBarController" customModule="MarsManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="sDn-m5-dZt"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dSA-Wh-Zfb">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="mAc-rt-C2a" kind="relationship" relationship="viewControllers" id="a2m-Z4-2j8"/>
+                        <segue destination="3iN-Ub-YUo" kind="relationship" relationship="viewControllers" id="H8O-Tw-UiY"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cvl-V2-uyP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1390" y="18"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="folder" catalog="system" width="128" height="96"/>
+        <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

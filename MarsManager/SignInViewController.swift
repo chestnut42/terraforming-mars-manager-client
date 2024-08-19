@@ -9,7 +9,11 @@ import AuthenticationServices
 import os
 import UIKit
 
-class ViewController: 
+protocol APIHolder {
+    var api: MarsAPIService? { get set }
+}
+
+class SignInViewController:
     UIViewController,
     ASAuthorizationControllerPresentationContextProviding,
     ASAuthorizationControllerDelegate
@@ -17,12 +21,15 @@ class ViewController:
     @IBOutlet var signInBaseView: UIView!
     @IBOutlet var activityView: UIActivityIndicatorView!
     @IBOutlet var statusText: UITextView!
+    var api: MarsAPIService?
     
     private let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: ViewController.self)
+        category: String(describing: SignInViewController.self)
     )
 
+    
+    // View Controller stuff
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -33,7 +40,15 @@ class ViewController:
         appleButton.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchUpInside)
         self.signInBaseView.addSubview(appleButton)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if var holder = segue.destination as? APIHolder {
+            holder.api = self.api
+        }
+    }
 
+    
+    // Handlers
     @objc
     func handleAuthorizationAppleIDButtonPress() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
@@ -46,6 +61,8 @@ class ViewController:
         authorizationController.performRequests()
     }
 
+    
+    // Sign In With Apple
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
     }
@@ -66,6 +83,7 @@ class ViewController:
                 let api = MarsAPIService(baseUrl: baseURL, token: token)
                 do {
                     let response = try await api.login()
+                    self.api = api
                     logger.info("logged in with \(response.user.nickname) <\(response.user.id)> (\(response.user.color.rawValue))")
                 } catch let error {
                     self.statusText.text = error.localizedDescription
@@ -77,9 +95,11 @@ class ViewController:
     }
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: any Error) {
-        logger.error("authorization failed: \(error)")
+        self.statusText.text = "authorization failed: \(error.localizedDescription)"
     }
     
+    
+    // Methods
     func parseIdentityToken(authorization: ASAuthorization) throws  -> String {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
