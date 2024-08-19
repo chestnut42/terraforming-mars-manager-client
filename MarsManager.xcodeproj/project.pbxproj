@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		750FA9BC2C734EC3005F9941 /* GameListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750FA9BB2C734EC3005F9941 /* GameListController.swift */; };
 		75741F1D2C69E2D9008C07D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75741F1C2C69E2D9008C07D7 /* AppDelegate.swift */; };
 		75741F1F2C69E2D9008C07D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75741F1E2C69E2D9008C07D7 /* SceneDelegate.swift */; };
 		75741F212C69E2D9008C07D7 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75741F202C69E2D9008C07D7 /* SignInViewController.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		750FA9BB2C734EC3005F9941 /* GameListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameListController.swift; sourceTree = "<group>"; };
 		75741F192C69E2D9008C07D7 /* MarsManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarsManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75741F1C2C69E2D9008C07D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75741F1E2C69E2D9008C07D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,14 +90,15 @@
 			isa = PBXGroup;
 			children = (
 				75904E602C6B325800E148D7 /* API */,
-				758B221F2C6A8C81006D1CFB /* MarsManager.entitlements */,
 				75741F1C2C69E2D9008C07D7 /* AppDelegate.swift */,
+				750FA9BB2C734EC3005F9941 /* GameListController.swift */,
 				759A384E2C71F16A00FF4ED4 /* MainTabBarController.swift */,
 				75741F1E2C69E2D9008C07D7 /* SceneDelegate.swift */,
 				75741F202C69E2D9008C07D7 /* SignInViewController.swift */,
 				75741F222C69E2DA008C07D7 /* Main.storyboard */,
-				75741F252C69E2DE008C07D7 /* Assets.xcassets */,
 				75741F272C69E2DE008C07D7 /* LaunchScreen.storyboard */,
+				75741F252C69E2DE008C07D7 /* Assets.xcassets */,
+				758B221F2C6A8C81006D1CFB /* MarsManager.entitlements */,
 				75741F2A2C69E2DE008C07D7 /* Info.plist */,
 			);
 			path = MarsManager;
@@ -235,6 +238,7 @@
 				75741F1D2C69E2D9008C07D7 /* AppDelegate.swift in Sources */,
 				75F9DFBF2C6BFC4F0017A0CD /* Errors.swift in Sources */,
 				75741F1F2C69E2D9008C07D7 /* SceneDelegate.swift in Sources */,
+				750FA9BC2C734EC3005F9941 /* GameListController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
