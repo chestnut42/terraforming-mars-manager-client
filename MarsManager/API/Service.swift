@@ -29,4 +29,21 @@ struct MarsAPIService {
             throw APIError.decode(data: data, cause: error)
         }
     }
+    
+    func getGames() async throws -> GetGamesResponse {
+        guard let url = URL(string: "/manager/api/v1/me/games", relativeTo: baseUrl) else {
+            throw APIError.undefined(message: "can't create a URL")
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        let (data, _) = try await URLSession.shared.data(for: request)
+        do {
+            return try JSONDecoder().decode(GetGamesResponse.self, from: data)
+        } catch let error {
+            throw APIError.decode(data: data, cause: error)
+        }
+    }
 }

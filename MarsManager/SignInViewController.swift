@@ -84,6 +84,7 @@ class SignInViewController:
                 do {
                     let response = try await api.login()
                     self.api = api
+                    self.performSegue(withIdentifier: "StartToTab", sender: nil)
                     logger.info("logged in with \(response.user.nickname) <\(response.user.id)> (\(response.user.color.rawValue))")
                 } catch let error {
                     self.statusText.text = error.localizedDescription

@@ -7,45 +7,64 @@
 
 import UIKit
 
-struct Game {
-    let playUrl: URL
-    let playersCount: Int
-    let awaitsInput: Bool
-}
-
 enum GameListData {
     case Message(String)
     case List([Game])
 }
 
 protocol GameViewCellDelegate: AnyObject {
-    func playButtonPressed(onCell: GameViewCell)
+    func playButtonPressed(on cell: GameViewCell)
 }
 
 class GameViewCell: UITableViewCell {
     @IBOutlet var label: UILabel!
     @IBOutlet var awaitsInputImage: UIImageView!
     
-    var data: GameListData?
+    var game: Game?
     weak var delegate: GameViewCellDelegate?
     
     @IBAction func playButtonPressed() {
         if let d = self.delegate {
-            d.playButtonPressed(onCell: self)
+            d.playButtonPressed(on: self)
         }
     }
 }
 
-class GameListController: UITableViewController, APIHolder {
+class GameListController: UITableViewController, APIHolder, GameViewCellDelegate {
     var api: MarsAPIService?
     var data: GameListData = GameListData.Message("loading") {
         didSet {
             self.tableView.reloadData()
         }
     }
-
+    
+    func playButtonPressed(on cell: GameViewCell) {
+        if let url = cell.game?.playURL {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    // MARK: - View Controller cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        guard let api = self.api else {
+            return
+        }
+        
+        self.data = GameListData.Message("loading")
+        
+        Task {
+            do {
+                let games = try await api.getGames()
+                self.data = GameListData.List(games.games)
+            } catch let error {
+                self.data = GameListData.Message("error: \(error.localizedDescription)")
+            }
+        }
     }
 
     // MARK: - Table view data source
@@ -64,9 +83,23 @@ class GameListController: UITableViewController, APIHolder {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "gameCellID", for: indexPath)
 
-        // Configure the cell...
+        if let gameCell = cell as? GameViewCell {
+            gameCell.delegate = self
+            
+            switch self.data {
+            case .Message(let msg):
+                gameCell.game = nil
+                gameCell.label.text = msg
+                gameCell.awaitsInputImage.isHidden = true
+            case .List(let games):
+                let g = games[indexPath.row]
+                gameCell.game = g
+                gameCell.label.text = "\(g.playersCount) players"
+                gameCell.awaitsInputImage.isHidden = !g.awaitsInput
+            }
+        }
 
         return cell
     }
