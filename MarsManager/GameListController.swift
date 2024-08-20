@@ -66,8 +66,13 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
         Task {
             do {
                 let games = try await api.getGames()
-                self.data = GameListData.List(games.games)
+                if games.games.count > 0 {
+                    self.data = GameListData.List(games.games)
+                } else {
+                    self.data = GameListData.Message("you have no games")
+                }
             } catch let error {
+                logger.error("error loading: \(error.localizedDescription)")
                 self.data = GameListData.Message("error: \(error.localizedDescription)")
             }
         }
