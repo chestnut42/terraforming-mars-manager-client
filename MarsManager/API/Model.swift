@@ -25,8 +25,18 @@ struct User: Codable {
     let color: Color
 }
 
+struct Game: Codable {
+    let playURL: URL
+    let playersCount: Int
+    let awaitsInput: Bool
+}
+
 struct LoginRequest: Codable {}
 
 struct LoginResponse: Codable {
     let user: User
+}
+
+struct GetGamesResponse: Codable {
+    let games: [Game]
 }

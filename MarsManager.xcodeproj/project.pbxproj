@@ -7,14 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		750FA9BC2C734EC3005F9941 /* GameListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750FA9BB2C734EC3005F9941 /* GameListController.swift */; };
 		75741F1D2C69E2D9008C07D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75741F1C2C69E2D9008C07D7 /* AppDelegate.swift */; };
 		75741F1F2C69E2D9008C07D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75741F1E2C69E2D9008C07D7 /* SceneDelegate.swift */; };
-		75741F212C69E2D9008C07D7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75741F202C69E2D9008C07D7 /* ViewController.swift */; };
+		75741F212C69E2D9008C07D7 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75741F202C69E2D9008C07D7 /* SignInViewController.swift */; };
 		75741F242C69E2DA008C07D7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 75741F232C69E2DA008C07D7 /* Base */; };
 		75741F262C69E2DE008C07D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75741F252C69E2DE008C07D7 /* Assets.xcassets */; };
 		75741F292C69E2DE008C07D7 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 75741F282C69E2DE008C07D7 /* Base */; };
 		75904E622C6B327C00E148D7 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75904E612C6B327C00E148D7 /* Service.swift */; };
 		75904E642C6B331F00E148D7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75904E632C6B331F00E148D7 /* Model.swift */; };
+		759A384F2C71F16A00FF4ED4 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759A384E2C71F16A00FF4ED4 /* MainTabBarController.swift */; };
 		75E793C42C6D236A0068BB90 /* ErrorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E793C32C6D236A0068BB90 /* ErrorsTests.swift */; };
 		75F9DFBF2C6BFC4F0017A0CD /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F9DFBE2C6BFC4F0017A0CD /* Errors.swift */; };
 /* End PBXBuildFile section */
@@ -30,10 +32,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		750FA9BB2C734EC3005F9941 /* GameListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameListController.swift; sourceTree = "<group>"; };
 		75741F192C69E2D9008C07D7 /* MarsManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarsManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75741F1C2C69E2D9008C07D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75741F1E2C69E2D9008C07D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		75741F202C69E2D9008C07D7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		75741F202C69E2D9008C07D7 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		75741F232C69E2DA008C07D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		75741F252C69E2DE008C07D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		75741F282C69E2DE008C07D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -41,6 +44,7 @@
 		758B221F2C6A8C81006D1CFB /* MarsManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MarsManager.entitlements; sourceTree = "<group>"; };
 		75904E612C6B327C00E148D7 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		75904E632C6B331F00E148D7 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		759A384E2C71F16A00FF4ED4 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		75E793C12C6D236A0068BB90 /* MarsManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarsManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		75E793C32C6D236A0068BB90 /* ErrorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorsTests.swift; sourceTree = "<group>"; };
 		75F9DFBE2C6BFC4F0017A0CD /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
@@ -86,13 +90,15 @@
 			isa = PBXGroup;
 			children = (
 				75904E602C6B325800E148D7 /* API */,
-				758B221F2C6A8C81006D1CFB /* MarsManager.entitlements */,
 				75741F1C2C69E2D9008C07D7 /* AppDelegate.swift */,
+				750FA9BB2C734EC3005F9941 /* GameListController.swift */,
+				759A384E2C71F16A00FF4ED4 /* MainTabBarController.swift */,
 				75741F1E2C69E2D9008C07D7 /* SceneDelegate.swift */,
-				75741F202C69E2D9008C07D7 /* ViewController.swift */,
+				75741F202C69E2D9008C07D7 /* SignInViewController.swift */,
 				75741F222C69E2DA008C07D7 /* Main.storyboard */,
-				75741F252C69E2DE008C07D7 /* Assets.xcassets */,
 				75741F272C69E2DE008C07D7 /* LaunchScreen.storyboard */,
+				75741F252C69E2DE008C07D7 /* Assets.xcassets */,
+				758B221F2C6A8C81006D1CFB /* MarsManager.entitlements */,
 				75741F2A2C69E2DE008C07D7 /* Info.plist */,
 			);
 			path = MarsManager;
@@ -226,11 +232,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				75904E642C6B331F00E148D7 /* Model.swift in Sources */,
-				75741F212C69E2D9008C07D7 /* ViewController.swift in Sources */,
+				75741F212C69E2D9008C07D7 /* SignInViewController.swift in Sources */,
 				75904E622C6B327C00E148D7 /* Service.swift in Sources */,
+				759A384F2C71F16A00FF4ED4 /* MainTabBarController.swift in Sources */,
 				75741F1D2C69E2D9008C07D7 /* AppDelegate.swift in Sources */,
 				75F9DFBF2C6BFC4F0017A0CD /* Errors.swift in Sources */,
 				75741F1F2C69E2D9008C07D7 /* SceneDelegate.swift in Sources */,
+				750FA9BC2C734EC3005F9941 /* GameListController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
