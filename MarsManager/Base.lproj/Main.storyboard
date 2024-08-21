@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -78,7 +79,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IUf-kE-6BR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2294" y="322"/>
+            <point key="canvasLocation" x="2294" y="897"/>
         </scene>
         <!--Games-->
         <scene sceneID="CMy-1h-MUt">
@@ -145,7 +146,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="13B-Sy-LXq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2293.8931297709923" y="-360.56338028169017"/>
+            <point key="canvasLocation" x="2294" y="-761"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="XB5-6g-mPM">
@@ -160,17 +161,197 @@
                     <connections>
                         <segue destination="BfT-aB-KG0" kind="relationship" relationship="viewControllers" id="eu3-P3-wgv"/>
                         <segue destination="3iN-Ub-YUo" kind="relationship" relationship="viewControllers" id="jKw-A4-2zP"/>
+                        <segue destination="OIH-g8-7Tp" kind="relationship" relationship="viewControllers" id="zCh-KS-M5j"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cvl-V2-uyP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1390" y="18"/>
         </scene>
+        <!--Create-->
+        <scene sceneID="Mrg-q7-x5F">
+            <objects>
+                <viewController id="OIH-g8-7Tp" customClass="CreateGameController" customModule="MarsManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NJF-ql-ywc">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Player 2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9V2-MG-pus" customClass="UISearchTextField">
+                                <rect key="frame" x="16" y="80" width="294" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="1gt-yP-dWM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textDidChangeWithSender:" destination="TC0-M9-hn8" eventType="editingChanged" id="vFY-mF-mjr"/>
+                                    <outlet property="delegate" destination="TC0-M9-hn8" id="WMv-5g-9DI"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Player 3" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i76-vj-smK" customClass="UISearchTextField">
+                                <rect key="frame" x="16" y="130" width="294" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="kqg-7S-9Gt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textDidChangeWithSender:" destination="ebs-7z-oGf" eventType="editingChanged" id="87d-Nv-BuZ"/>
+                                    <outlet property="delegate" destination="ebs-7z-oGf" id="1vU-Ui-oik"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Player 4" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VxA-Sr-Cts" customClass="UISearchTextField">
+                                <rect key="frame" x="16" y="180" width="294" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="9di-oO-PBP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textDidChangeWithSender:" destination="tmk-lP-vOc" eventType="editingChanged" id="TNh-aA-so1"/>
+                                    <outlet property="delegate" destination="tmk-lP-vOc" id="IAj-Oc-joR"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Player 5" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C7r-ll-TFI" customClass="UISearchTextField">
+                                <rect key="frame" x="16" y="230" width="294" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="OH1-nH-VBJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textDidChangeWithSender:" destination="LAF-ru-GAr" eventType="editingChanged" id="j2w-Ye-mRh"/>
+                                    <outlet property="delegate" destination="LAF-ru-GAr" id="3Ac-Db-wgo"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hHB-lF-OzB">
+                                <rect key="frame" x="326" y="79.666666666666671" width="51" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="Uyx-Y6-5m6"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="archivebox" catalog="system"/>
+                                <connections>
+                                    <action selector="archiveButtonPressedWithSender:" destination="TC0-M9-hn8" eventType="touchUpInside" id="siE-Ii-4P1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T4I-wT-dTa">
+                                <rect key="frame" x="326" y="129.66666666666666" width="51" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="p7f-wg-jJU"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="archivebox" catalog="system"/>
+                                <connections>
+                                    <action selector="archiveButtonPressedWithSender:" destination="ebs-7z-oGf" eventType="touchUpInside" id="YNo-IK-1Bx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ax-fl-qRD">
+                                <rect key="frame" x="326" y="179.66666666666666" width="51" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="JRQ-tb-xMj"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="archivebox" catalog="system"/>
+                                <connections>
+                                    <action selector="archiveButtonPressedWithSender:" destination="tmk-lP-vOc" eventType="touchUpInside" id="YcO-0O-eUW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4x-mf-0kS">
+                                <rect key="frame" x="326" y="229.66666666666666" width="51" height="34.999999999999972"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="BoT-6U-l7w"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="archivebox" catalog="system"/>
+                                <connections>
+                                    <action selector="archiveButtonPressedWithSender:" destination="LAF-ru-GAr" eventType="touchUpInside" id="LfK-dp-Q6V"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="76f-rW-5yA">
+                                <rect key="frame" x="16" y="328" width="361" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="boZ-39-SUX"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Create"/>
+                                <connections>
+                                    <action selector="createButtonPressedWithSender:" destination="OIH-g8-7Tp" eventType="touchUpInside" id="d6i-mq-y7p"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Odi-fw-vNe"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="VxA-Sr-Cts" firstAttribute="leading" secondItem="Odi-fw-vNe" secondAttribute="leading" constant="16" id="0Fl-fq-Dw7"/>
+                            <constraint firstItem="hHB-lF-OzB" firstAttribute="leading" secondItem="9V2-MG-pus" secondAttribute="trailing" constant="16" id="6St-vH-Uuy"/>
+                            <constraint firstItem="76f-rW-5yA" firstAttribute="leading" secondItem="Odi-fw-vNe" secondAttribute="leading" constant="16" id="7fj-QU-dVf"/>
+                            <constraint firstItem="Odi-fw-vNe" firstAttribute="trailing" secondItem="T4I-wT-dTa" secondAttribute="trailing" constant="16" id="AQH-t6-dOM"/>
+                            <constraint firstItem="Odi-fw-vNe" firstAttribute="trailing" secondItem="76f-rW-5yA" secondAttribute="trailing" constant="16" id="D5A-ie-vnB"/>
+                            <constraint firstItem="i76-vj-smK" firstAttribute="leading" secondItem="Odi-fw-vNe" secondAttribute="leading" constant="16" id="JiY-aE-OnN"/>
+                            <constraint firstItem="C7r-ll-TFI" firstAttribute="leading" secondItem="Odi-fw-vNe" secondAttribute="leading" constant="16" id="Ka1-zR-HLS"/>
+                            <constraint firstItem="T4I-wT-dTa" firstAttribute="centerY" secondItem="i76-vj-smK" secondAttribute="centerY" id="Mu4-sL-xMn"/>
+                            <constraint firstItem="Odi-fw-vNe" firstAttribute="trailing" secondItem="hHB-lF-OzB" secondAttribute="trailing" constant="16" id="NPo-E5-DzW"/>
+                            <constraint firstItem="J4x-mf-0kS" firstAttribute="leading" secondItem="C7r-ll-TFI" secondAttribute="trailing" constant="16" id="PUf-af-lfY"/>
+                            <constraint firstItem="i76-vj-smK" firstAttribute="top" secondItem="9V2-MG-pus" secondAttribute="bottom" constant="16" id="PgH-Ho-UMZ"/>
+                            <constraint firstItem="Odi-fw-vNe" firstAttribute="trailing" secondItem="1Ax-fl-qRD" secondAttribute="trailing" constant="16" id="Qen-Jz-BBl"/>
+                            <constraint firstItem="J4x-mf-0kS" firstAttribute="centerY" secondItem="C7r-ll-TFI" secondAttribute="centerY" id="SIp-dt-CXK"/>
+                            <constraint firstItem="VxA-Sr-Cts" firstAttribute="top" secondItem="i76-vj-smK" secondAttribute="bottom" constant="16" id="WaG-Le-iNF"/>
+                            <constraint firstItem="Odi-fw-vNe" firstAttribute="trailing" secondItem="J4x-mf-0kS" secondAttribute="trailing" constant="16" id="b6s-EH-z5p"/>
+                            <constraint firstItem="9V2-MG-pus" firstAttribute="top" secondItem="Odi-fw-vNe" secondAttribute="top" constant="80" id="bfT-DP-8iL"/>
+                            <constraint firstItem="9V2-MG-pus" firstAttribute="leading" secondItem="Odi-fw-vNe" secondAttribute="leading" constant="16" id="ch5-Fh-SP3"/>
+                            <constraint firstItem="C7r-ll-TFI" firstAttribute="top" secondItem="VxA-Sr-Cts" secondAttribute="bottom" constant="16" id="df6-h9-fdB"/>
+                            <constraint firstItem="hHB-lF-OzB" firstAttribute="centerY" secondItem="9V2-MG-pus" secondAttribute="centerY" id="emE-jh-s8V"/>
+                            <constraint firstItem="1Ax-fl-qRD" firstAttribute="leading" secondItem="VxA-Sr-Cts" secondAttribute="trailing" constant="16" id="iLO-KQ-5ZD"/>
+                            <constraint firstItem="T4I-wT-dTa" firstAttribute="leading" secondItem="i76-vj-smK" secondAttribute="trailing" constant="16" id="jWM-Bl-fSg"/>
+                            <constraint firstItem="1Ax-fl-qRD" firstAttribute="centerY" secondItem="VxA-Sr-Cts" secondAttribute="centerY" id="jtc-2a-wot"/>
+                            <constraint firstItem="76f-rW-5yA" firstAttribute="top" secondItem="C7r-ll-TFI" secondAttribute="bottom" constant="64" id="lZB-3m-CDw"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Create" image="plus.app" catalog="system" id="FeS-iF-GUK"/>
+                    <connections>
+                        <outlet property="createButton" destination="76f-rW-5yA" id="ij7-qt-dAK"/>
+                        <outletCollection property="textControllers" destination="TC0-M9-hn8" collectionClass="NSMutableArray" id="uvI-ev-Rpc"/>
+                        <outletCollection property="textControllers" destination="ebs-7z-oGf" collectionClass="NSMutableArray" id="KZx-5P-Xb1"/>
+                        <outletCollection property="textControllers" destination="tmk-lP-vOc" collectionClass="NSMutableArray" id="SlP-ww-GhT"/>
+                        <outletCollection property="textControllers" destination="LAF-ru-GAr" collectionClass="NSMutableArray" id="XQg-HC-9p0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g6g-Mg-bEd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <customObject id="TC0-M9-hn8" customClass="UserSearchController" customModule="MarsManager" customModuleProvider="target">
+                    <connections>
+                        <outlet property="delegate" destination="OIH-g8-7Tp" id="PNi-uf-sYR"/>
+                        <outlet property="textField" destination="9V2-MG-pus" id="VDU-Jx-9vD"/>
+                    </connections>
+                </customObject>
+                <customObject id="ebs-7z-oGf" customClass="UserSearchController" customModule="MarsManager" customModuleProvider="target">
+                    <connections>
+                        <outlet property="delegate" destination="OIH-g8-7Tp" id="siB-Ha-EXV"/>
+                        <outlet property="textField" destination="i76-vj-smK" id="6pe-IR-T5m"/>
+                    </connections>
+                </customObject>
+                <customObject id="tmk-lP-vOc" customClass="UserSearchController" customModule="MarsManager" customModuleProvider="target">
+                    <connections>
+                        <outlet property="delegate" destination="OIH-g8-7Tp" id="7vS-oK-DDy"/>
+                        <outlet property="textField" destination="VxA-Sr-Cts" id="ryT-JC-eSL"/>
+                    </connections>
+                </customObject>
+                <customObject id="LAF-ru-GAr" customClass="UserSearchController" customModule="MarsManager" customModuleProvider="target">
+                    <connections>
+                        <outlet property="delegate" destination="OIH-g8-7Tp" id="V5D-wE-efC"/>
+                        <outlet property="textField" destination="C7r-ll-TFI" id="vEM-3b-R4f"/>
+                    </connections>
+                </customObject>
+            </objects>
+            <point key="canvasLocation" x="2293.8931297709923" y="17.605633802816904"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="archivebox" catalog="system" width="128" height="107"/>
         <image name="exclamationmark.circle" catalog="system" width="128" height="123"/>
         <image name="folder" catalog="system" width="128" height="96"/>
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
+        <image name="plus.app" catalog="system" width="128" height="114"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
