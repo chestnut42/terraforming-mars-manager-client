@@ -25,13 +25,25 @@ class GameViewCell: UITableViewCell {
     weak var delegate: GameViewCellDelegate?
     
     @IBAction func playButtonPressed() {
-        if let d = self.delegate {
-            d.playButtonPressed(on: self)
-        }
+        self.delegate?.playButtonPressed(on: self)
     }
 }
 
-class GameListController: UITableViewController, APIHolder, GameViewCellDelegate {
+protocol CreateGameCellDelegate: AnyObject {
+    func createButtonPressed(on cell: CreateGameCell)
+}
+
+class CreateGameCell: UITableViewCell {
+    @IBOutlet var button: UIButton!
+    
+    weak var delegate: CreateGameCellDelegate?
+    
+    @IBAction func createButtonPressed() {
+        self.delegate?.createButtonPressed(on: self)
+    }
+}
+
+class GameListController: UITableViewController, APIHolder, GameViewCellDelegate, CreateGameCellDelegate {
     var api: MarsAPIService?
     var data: GameListData = GameListData.Message("loading") {
         didSet {
@@ -44,10 +56,23 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
         category: String(describing: GameListController.self)
     )
     
+    private func getDataDetails() -> (count: Int, allowsCreate: Bool) {
+        switch data {
+        case .Message(_):
+            return (1, false)
+        case .List(let games):
+            return (games.count, true)
+        }
+    }
+    
     func playButtonPressed(on cell: GameViewCell) {
         if let url = cell.game?.playURL {
             UIApplication.shared.open(url)
         }
+    }
+    
+    func createButtonPressed(on cell: CreateGameCell) {
+        self.performSegue(withIdentifier: "OpenCreateGame", sender: nil)
     }
     
     // MARK: - View Controller cycle
@@ -66,15 +91,17 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
         Task {
             do {
                 let games = try await api.getGames()
-                if games.games.count > 0 {
-                    self.data = GameListData.List(games.games)
-                } else {
-                    self.data = GameListData.Message("you have no games")
-                }
+                self.data = GameListData.List(games.games)
             } catch let error {
                 logger.error("error loading: \(error.localizedDescription)")
                 self.data = GameListData.Message("error: \(error.localizedDescription)")
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if var holder = segue.destination as? APIHolder {
+            holder.api = self.api
         }
     }
 
@@ -85,16 +112,21 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch self.data {
-        case .Message(_):
-            return 1
-        case .List(let games):
-            return games.count
+        let (count, allowsCreate) = getDataDetails()
+        if allowsCreate {
+            return count + 1
         }
+        return count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "gameCellID", for: indexPath)
+        let (count, allowsCreate) = getDataDetails()
+        var cellID = "gameCellID"
+        if allowsCreate && indexPath.row >= count {
+            cellID = "createGame"
+        }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
 
         if let gameCell = cell as? GameViewCell {
             gameCell.delegate = self
@@ -111,43 +143,10 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
                 gameCell.awaitsInputImage.isHidden = !g.awaitsInput
             }
         }
+        if let createCell = cell as? CreateGameCell {
+            createCell.delegate = self
+        }
 
         return cell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
 }
