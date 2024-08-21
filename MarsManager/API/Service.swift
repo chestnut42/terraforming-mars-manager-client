@@ -51,6 +51,20 @@ struct MarsAPIService {
         return try await process(request: request, as: SearchResponse.self)
     }
     
+    func update(deviceToken: Data) async throws -> UpdateDeviceTokenResponse {
+        guard let url = URL(string: "/manager/api/v1/me/device-token", relativeTo: baseUrl) else {
+            throw APIError.undefined(message: "can't create a URL")
+        }
+        
+        let bodyData = try JSONEncoder().encode(UpdateDeviceTokenRequest(deviceToken: deviceToken))
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = bodyData
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        return try await process(request: request, as: UpdateDeviceTokenResponse.self)
+    }
+    
     func process<T: Decodable>(request: URLRequest, as type: T.Type) async throws -> T {
         let (data, resp) = try await URLSession.shared.data(for: request)
         if let httpResp = resp as? HTTPURLResponse, httpResp.statusCode != 200 {

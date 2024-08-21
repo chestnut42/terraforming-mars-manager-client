@@ -13,6 +13,12 @@ protocol APIHolder {
     var api: MarsAPIService? { get set }
 }
 
+extension Notification.Name {
+    static var apiCreated: Notification.Name {
+        return Notification.Name("mars.manager.api.created")
+    }
+}
+
 class SignInViewController:
     UIViewController,
     ASAuthorizationControllerPresentationContextProviding,
@@ -83,8 +89,20 @@ class SignInViewController:
                 do {
                     let response = try await api.login()
                     self.api = api
-                    self.performSegue(withIdentifier: "StartToTab", sender: nil)
                     logger.info("logged in with \(response.user.nickname) <\(response.user.id)> (\(response.user.color.rawValue))")
+                    
+                    NotificationCenter.default.post(name: .apiCreated, object: nil, userInfo: ["api": api])
+                    
+                    // Register for notifications
+                    let granted = try await UNUserNotificationCenter.current().requestAuthorization(options: [
+                        .alert, .badge, .sound
+                    ])
+                    if granted {
+                        UIApplication.shared.registerForRemoteNotifications()
+                    }
+                    
+                    self.performSegue(withIdentifier: "StartToTab", sender: nil)
+                    
                 } catch let error {
                     self.statusText.text = error.localizedDescription
                 }
