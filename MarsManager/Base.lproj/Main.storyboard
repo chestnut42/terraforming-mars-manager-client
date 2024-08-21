@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -319,21 +320,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g6g-Mg-bEd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <customObject id="TC0-M9-hn8" customClass="UserSearchController" customModule="MarsManager" customModuleProvider="target">
                     <connections>
+                        <outlet property="delegate" destination="OIH-g8-7Tp" id="PNi-uf-sYR"/>
                         <outlet property="textField" destination="9V2-MG-pus" id="VDU-Jx-9vD"/>
                     </connections>
                 </customObject>
                 <customObject id="ebs-7z-oGf" customClass="UserSearchController" customModule="MarsManager" customModuleProvider="target">
                     <connections>
+                        <outlet property="delegate" destination="OIH-g8-7Tp" id="siB-Ha-EXV"/>
                         <outlet property="textField" destination="i76-vj-smK" id="6pe-IR-T5m"/>
                     </connections>
                 </customObject>
                 <customObject id="tmk-lP-vOc" customClass="UserSearchController" customModule="MarsManager" customModuleProvider="target">
                     <connections>
+                        <outlet property="delegate" destination="OIH-g8-7Tp" id="7vS-oK-DDy"/>
                         <outlet property="textField" destination="VxA-Sr-Cts" id="ryT-JC-eSL"/>
                     </connections>
                 </customObject>
                 <customObject id="LAF-ru-GAr" customClass="UserSearchController" customModule="MarsManager" customModuleProvider="target">
                     <connections>
+                        <outlet property="delegate" destination="OIH-g8-7Tp" id="V5D-wE-efC"/>
                         <outlet property="textField" destination="C7r-ll-TFI" id="vEM-3b-R4f"/>
                     </connections>
                 </customObject>

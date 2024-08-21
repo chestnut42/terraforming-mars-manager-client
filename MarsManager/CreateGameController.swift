@@ -8,11 +8,11 @@
 import UIKit
 import os
 
-protocol UserSearchControllerDelegate: AnyObject {
+@objc protocol UserSearchControllerDelegate: NSObjectProtocol {
     func controllerDidChangedState(_ controller: UserSearchController)
 }
 
-class UserSearchController: NSObject, UITextFieldDelegate, APIHolder {
+class UserSearchController: NSObject, UISearchTextFieldDelegate, APIHolder {
     private let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: UserSearchController.self)
@@ -24,7 +24,6 @@ class UserSearchController: NSObject, UITextFieldDelegate, APIHolder {
     
     var api: MarsAPIService?
     
-    weak var delegate: (any UserSearchControllerDelegate)?
     var currentUser: String? { get {
         if textField.isHidden {
             return nil
@@ -35,6 +34,7 @@ class UserSearchController: NSObject, UITextFieldDelegate, APIHolder {
         return !textField.isHidden
     }}
     
+    @IBOutlet weak var delegate: (any UserSearchControllerDelegate)?
     @IBOutlet var textField: UISearchTextField!
     
     @IBAction func archiveButtonPressed(sender: UIButton) {
@@ -75,6 +75,8 @@ class UserSearchController: NSObject, UITextFieldDelegate, APIHolder {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        self.textField.searchSuggestions = nil
+        
         for s in lastSuggestions {
             if s == textField.text {
                 user = textField.text
@@ -87,6 +89,13 @@ class UserSearchController: NSObject, UITextFieldDelegate, APIHolder {
         user = nil
         delegate?.controllerDidChangedState(self)
         return true
+    }
+    
+    func searchTextField(_ searchTextField: UISearchTextField, didSelect suggestion: any UISearchSuggestion) {
+        textField.resignFirstResponder()
+        textField.text = suggestion.localizedSuggestion
+        user = suggestion.localizedSuggestion
+        delegate?.controllerDidChangedState(self)
     }
 }
 
