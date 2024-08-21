@@ -40,3 +40,17 @@ struct LoginResponse: Codable {
 struct GetGamesResponse: Codable {
     let games: [Game]
 }
+
+struct SearchRequest: Codable {
+    let search: String
+}
+
+struct SearchResponse: Codable {
+    let users: [User]
+}
+
+struct CreateGameRequest: Codable {
+    let players: [String]
+}
+
+struct CreateGameResponse: Codable {}
