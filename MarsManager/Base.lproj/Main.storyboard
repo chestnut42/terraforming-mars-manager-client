@@ -63,7 +63,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="130.53435114503816" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="140" y="18"/>
         </scene>
         <!--Profile-->
         <scene sceneID="cAm-MG-RLp">
@@ -79,7 +79,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IUf-kE-6BR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2294" y="897"/>
+            <point key="canvasLocation" x="2294" y="404"/>
         </scene>
         <!--Games-->
         <scene sceneID="CMy-1h-MUt">
@@ -136,6 +136,35 @@
                                     <outlet property="label" destination="4xU-mx-iKC" id="8w5-h5-BCY"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="createGame" id="OHa-X6-MQV" customClass="CreateGameCell" customModule="MarsManager" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="93.666667938232422" width="393" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OHa-X6-MQV" id="Tyj-46-yLb">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zy3-6E-sE4">
+                                            <rect key="frame" x="16" y="4.3333333333333321" width="361" height="35"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="35" id="c4N-KV-cbu"/>
+                                            </constraints>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="filled" title="Create New Game"/>
+                                            <connections>
+                                                <action selector="createButtonPressed" destination="OHa-X6-MQV" eventType="touchUpInside" id="WBQ-Mm-BNI"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="zy3-6E-sE4" firstAttribute="leading" secondItem="Tyj-46-yLb" secondAttribute="leading" constant="16" id="QYd-Jc-Cdi"/>
+                                        <constraint firstAttribute="trailing" secondItem="zy3-6E-sE4" secondAttribute="trailing" constant="16" id="Qmj-8v-yMp"/>
+                                        <constraint firstItem="zy3-6E-sE4" firstAttribute="centerY" secondItem="Tyj-46-yLb" secondAttribute="centerY" id="p8i-6h-sLV"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="button" destination="zy3-6E-sE4" id="9Da-ZT-LOc"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="BfT-aB-KG0" id="Fmj-NZ-BOq"/>
@@ -143,10 +172,13 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Games" image="folder" catalog="system" id="Vve-WU-dVa"/>
+                    <connections>
+                        <segue destination="OIH-g8-7Tp" kind="show" identifier="OpenCreateGame" id="chi-9V-DPx"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="13B-Sy-LXq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2294" y="-761"/>
+            <point key="canvasLocation" x="2294" y="-344"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="XB5-6g-mPM">
@@ -161,7 +193,6 @@
                     <connections>
                         <segue destination="BfT-aB-KG0" kind="relationship" relationship="viewControllers" id="eu3-P3-wgv"/>
                         <segue destination="3iN-Ub-YUo" kind="relationship" relationship="viewControllers" id="jKw-A4-2zP"/>
-                        <segue destination="OIH-g8-7Tp" kind="relationship" relationship="viewControllers" id="zCh-KS-M5j"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cvl-V2-uyP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -173,7 +204,7 @@
             <objects>
                 <viewController id="OIH-g8-7Tp" customClass="CreateGameController" customModule="MarsManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NJF-ql-ywc">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Player 2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9V2-MG-pus" customClass="UISearchTextField">
@@ -309,6 +340,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Create" image="plus.app" catalog="system" id="FeS-iF-GUK"/>
+                    <navigationItem key="navigationItem" id="jAm-6Q-o3u"/>
                     <connections>
                         <outlet property="createButton" destination="76f-rW-5yA" id="ij7-qt-dAK"/>
                         <outletCollection property="textControllers" destination="TC0-M9-hn8" collectionClass="NSMutableArray" id="uvI-ev-Rpc"/>
@@ -343,7 +375,7 @@
                     </connections>
                 </customObject>
             </objects>
-            <point key="canvasLocation" x="2293.8931297709923" y="17.605633802816904"/>
+            <point key="canvasLocation" x="3361" y="-344"/>
         </scene>
     </scenes>
     <resources>

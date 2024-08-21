@@ -100,6 +100,11 @@ class UserSearchController: NSObject, UISearchTextFieldDelegate, APIHolder {
 }
 
 class CreateGameController: UIViewController, UserSearchControllerDelegate, APIHolder {
+    private let logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: CreateGameController.self)
+    )
+    
     var api: MarsAPIService?
     
     @IBOutlet var textControllers: [UserSearchController]!
@@ -115,7 +120,19 @@ class CreateGameController: UIViewController, UserSearchControllerDelegate, APIH
     }
     
     @IBAction func createButtonPressed(sender: UIButton) {
-        print("create: \(textControllers.map({ c in c.currentUser }))")
+        guard let api = self.api else {
+            return
+        }
+        
+        let players = textControllers.compactMap({ u in u.currentUser })
+        Task {
+            do {
+                _ = try await api.createGame(players: players)
+            } catch let error {
+                logger.error("failed to create a game: \(error.localizedDescription)")
+            }
+            self.presentingViewController?.dismiss(animated: true)
+        }
     }
     
     func controllerDidChangedState(_ controller: UserSearchController) {
