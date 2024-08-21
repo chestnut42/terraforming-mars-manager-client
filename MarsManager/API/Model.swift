@@ -54,3 +54,9 @@ struct CreateGameRequest: Codable {
 }
 
 struct CreateGameResponse: Codable {}
+
+struct UpdateDeviceTokenRequest: Codable {
+    let deviceToken: Data
+}
+
+struct UpdateDeviceTokenResponse: Codable {}
