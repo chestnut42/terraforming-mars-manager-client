@@ -13,16 +13,12 @@ import os
 }
 
 class UserSearchController: NSObject, UISearchTextFieldDelegate, APIHolder {
-    private let logger = Logger(
-        subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: UserSearchController.self)
-    )
-    
     private var lastSuggestions: [String] = []
     private var currentRequestID: UUID = UUID()
     private var user: String?
     
     var api: MarsAPIService?
+    weak var processor: (any AsyncProcessor & AnyObject)?
     
     var currentUser: String? { get {
         if textField.isHidden {
@@ -43,33 +39,45 @@ class UserSearchController: NSObject, UISearchTextFieldDelegate, APIHolder {
     }
     
     @IBAction func textDidChange(sender: UITextField) {
-        let reqID = UUID()
-        currentRequestID = reqID
-        
         Task {
-            guard let term = sender.text else {
+            await reloadSuggestions()
+        }
+    }
+    
+    func reloadSuggestions() async {
+        guard let term = textField.text else {
+            return
+        }
+        
+        self.processor!.processAsyc {
+            let reqID = UUID()
+            self.currentRequestID = reqID
+            
+            guard let api = self.api else {
+                throw APIError.undefined(message: "no api object is set")
+            }
+            
+            let users = try await api.search(for: term)
+            // If no new requests were made - drop this response
+            if self.currentRequestID != reqID {
                 return
             }
-            guard let api = self.api else {
+            // If editing was finished - drop this response
+            if !self.textField.isFirstResponder {
                 return
             }
             
-            do {
-                let resp = try await api.search(for: term)
-                
-                // Check if no new requests were made
-                if currentRequestID != reqID {
-                    return
-                }
-                
-                let suggestions = resp.users.map { u in u.nickname }
-                lastSuggestions = suggestions
-                textField.searchSuggestions = suggestions.map({ n in
-                    return UISearchSuggestionItem(localizedSuggestion: n)
-                })
-            } catch let error {
-                logger.error("search call error: \(error)")
-            }
+            let suggestions = users.map { u in u.nickname }
+            self.lastSuggestions = suggestions
+            self.textField.searchSuggestions = suggestions.map({ n in
+                return UISearchSuggestionItem(localizedSuggestion: n)
+            })
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        Task {
+            await reloadSuggestions()
         }
     }
     
@@ -104,11 +112,6 @@ protocol CreateGameControllerDelegate: AnyObject {
 }
 
 class CreateGameController: UIViewController, UserSearchControllerDelegate, APIHolder {
-    private let logger = Logger(
-        subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: CreateGameController.self)
-    )
-    
     var api: MarsAPIService?
     weak var delegate: CreateGameControllerDelegate?
     
@@ -120,23 +123,21 @@ class CreateGameController: UIViewController, UserSearchControllerDelegate, APIH
         
         for tc in textControllers {
             tc.api = api
+            tc.processor = self
         }
         createButton.isEnabled = shouldEnableCreate()
     }
     
     @IBAction func createButtonPressed(sender: UIButton) {
-        guard let api = self.api else {
-            return
-        }
-        
-        let players = textControllers.compactMap({ u in u.currentUser })
-        Task {
-            do {
-                _ = try await api.createGame(players: players)
-            } catch let error {
-                logger.error("failed to create a game: \(error.localizedDescription)")
+        self.processAsyc {
+            guard let api = self.api else {
+                throw APIError.undefined(message: "no api object is set")
             }
-            self.presentingViewController?.dismiss(animated: true)
+            
+            let players = self.textControllers.compactMap({ u in u.currentUser })
+            _ = try await api.createGame(players: players)
+            
+            self.delegate?.gameControllerDidCreateGame(self)
         }
     }
     
@@ -145,18 +146,19 @@ class CreateGameController: UIViewController, UserSearchControllerDelegate, APIH
     }
     
     private func shouldEnableCreate() -> Bool {
-        var hasAtLeastOneUser = false
+        var userList: [String] = []
         for c in textControllers {
             if !c.isEnabled {
                 continue
             }
             
-            if c.currentUser == nil {
+            guard let cu = c.currentUser else {
                 // User is nil for enabled player
                 return false
             }
-            hasAtLeastOneUser = true
+            userList.append(cu)
         }
-        return hasAtLeastOneUser
+        let userSet: Set = Set(userList)
+        return userList.count >= 1 && userList.count == userSet.count
     }
 }

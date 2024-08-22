@@ -26,14 +26,7 @@ class SignInViewController:
 {
     @IBOutlet var signInBaseView: UIView!
     @IBOutlet var activityView: UIActivityIndicatorView!
-    @IBOutlet var statusText: UITextView!
     var api: MarsAPIService?
-    
-    private let logger = Logger(
-        subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: SignInViewController.self)
-    )
-
     
     // View Controller stuff
     override func viewDidLoad() {
@@ -44,6 +37,9 @@ class SignInViewController:
         
         let appleButton = ASAuthorizationAppleIDButton()
         appleButton.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchUpInside)
+        var f = self.signInBaseView.frame
+        f.origin = .zero
+        appleButton.frame = f
         self.signInBaseView.addSubview(appleButton)
     }
     
@@ -74,46 +70,37 @@ class SignInViewController:
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        do {
+        self.processAsyc {
             let token = try self.parseIdentityToken(authorization: authorization)
-            
             guard let baseURL = URL(string: "https://mars.blockthem.xyz") else {
                 throw APIError.undefined(message: "can't create base url")
             }
             
-            Task {
-                self.activityView.isHidden = false
-                defer { self.activityView.isHidden = true }
-                
-                let api = MarsAPIService(baseUrl: baseURL, token: token)
-                do {
-                    let response = try await api.login()
-                    self.api = api
-                    logger.info("logged in with \(response.user.nickname) <\(response.user.id)> (\(response.user.color.rawValue))")
-                    
-                    NotificationCenter.default.post(name: .apiCreated, object: nil, userInfo: ["api": api])
-                    
-                    // Register for notifications
-                    let granted = try await UNUserNotificationCenter.current().requestAuthorization(options: [
-                        .alert, .badge, .sound
-                    ])
-                    if granted {
-                        UIApplication.shared.registerForRemoteNotifications()
-                    }
-                    
-                    self.performSegue(withIdentifier: "StartToTab", sender: nil)
-                    
-                } catch let error {
-                    self.statusText.text = error.localizedDescription
-                }
+            self.activityView.isHidden = false
+            defer { self.activityView.isHidden = true }
+            
+            let api = MarsAPIService(baseUrl: baseURL, token: token)
+            _ = try await api.login()
+            self.api = api
+            
+            NotificationCenter.default.post(name: .apiCreated, object: nil, userInfo: ["api": api])
+            
+            // Register for notifications
+            let granted = try await UNUserNotificationCenter.current().requestAuthorization(options: [
+                .alert, .badge, .sound
+            ])
+            if granted {
+                UIApplication.shared.registerForRemoteNotifications()
             }
-        } catch let error {
-            self.statusText.text = error.localizedDescription
+            
+            self.performSegue(withIdentifier: "StartToTab", sender: nil)
         }
     }
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: any Error) {
-        self.statusText.text = "authorization failed: \(error.localizedDescription)"
+        self.processAsyc {
+            throw APIError.undefined(message: "authorization failed: \(error.localizedDescription)")
+        }
     }
     
     

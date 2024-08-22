@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
-enum Color: String, Codable {
+enum Color: String, Codable, CaseIterable {
     case blue = "BLUE"
     case red = "RED"
     case yellow = "YELLOW"
@@ -60,3 +61,16 @@ struct UpdateDeviceTokenRequest: Codable, Equatable {
 }
 
 struct UpdateDeviceTokenResponse: Codable, Equatable {}
+
+struct GetMeResponse: Codable, Equatable {
+    let user: User
+}
+
+struct UpdateMeRequest: Codable, Equatable {
+    let nickname: String
+    let color: Color
+}
+
+struct UpdateMeResponse: Codable, Equatable {
+    let user: User
+}

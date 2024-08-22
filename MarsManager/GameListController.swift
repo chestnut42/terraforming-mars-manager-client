@@ -51,11 +51,6 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
         }
     }
     
-    private let logger = Logger(
-        subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: GameListController.self)
-    )
-    
     private func getDataDetails() -> (count: Int, allowsCreate: Bool) {
         switch data {
         case .Message(_):
@@ -83,17 +78,19 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
     }
     
     private func reloadData() async {
-        guard let api = self.api else {
-            return
-        }
-        
-        self.data = GameListData.Message("loading")
-        do {
-            let games = try await api.getGames()
-            self.data = GameListData.List(games.games)
-        } catch let error {
-            logger.error("error loading: \(error.localizedDescription)")
-            self.data = GameListData.Message("error: \(error.localizedDescription)")
+        self.processAsyc {
+            guard let api = self.api else {
+                throw APIError.undefined(message: "no api object is set")
+            }
+            
+            self.data = GameListData.Message("loading")
+            do {
+                let games = try await api.getGames()
+                self.data = GameListData.List(games)
+            } catch let error {
+                self.data = GameListData.Message("error: \(error.localizedDescription)")
+                throw error
+            }
         }
     }
     
