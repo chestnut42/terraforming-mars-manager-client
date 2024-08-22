@@ -66,7 +66,7 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
     }
     
     func playButtonPressed(on cell: GameViewCell) {
-        if let url = cell.game?.playURL {
+        if let url = cell.game?.playUrl {
             UIApplication.shared.open(url)
         }
     }

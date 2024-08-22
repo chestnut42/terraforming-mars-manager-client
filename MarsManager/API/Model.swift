@@ -19,44 +19,44 @@ enum Color: String, Codable {
     case bronze = "BRONZE"
 }
 
-struct User: Codable {
+struct User: Codable, Equatable {
     let id: String
     let nickname: String
     let color: Color
 }
 
-struct Game: Codable {
-    let playURL: URL
+struct Game: Codable, Equatable {
+    let playUrl: URL
     let playersCount: Int
     let awaitsInput: Bool
 }
 
-struct LoginRequest: Codable {}
+struct LoginRequest: Codable, Equatable {}
 
-struct LoginResponse: Codable {
+struct LoginResponse: Codable, Equatable {
     let user: User
 }
 
-struct GetGamesResponse: Codable {
+struct GetGamesResponse: Codable, Equatable {
     let games: [Game]
 }
 
-struct SearchRequest: Codable {
+struct SearchRequest: Codable, Equatable {
     let search: String
 }
 
-struct SearchResponse: Codable {
+struct SearchResponse: Codable, Equatable {
     let users: [User]
 }
 
-struct CreateGameRequest: Codable {
+struct CreateGameRequest: Codable, Equatable {
     let players: [String]
 }
 
-struct CreateGameResponse: Codable {}
+struct CreateGameResponse: Codable, Equatable {}
 
-struct UpdateDeviceTokenRequest: Codable {
+struct UpdateDeviceTokenRequest: Codable, Equatable {
     let deviceToken: Data
 }
 
-struct UpdateDeviceTokenResponse: Codable {}
+struct UpdateDeviceTokenResponse: Codable, Equatable {}
