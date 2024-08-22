@@ -8,7 +8,7 @@
 import UIKit
 import os
 
-@objc protocol UserSearchControllerDelegate: NSObjectProtocol {
+@objc protocol UserSearchControllerDelegate: AnyObject {
     func controllerDidChangedState(_ controller: UserSearchController)
 }
 
@@ -99,6 +99,10 @@ class UserSearchController: NSObject, UISearchTextFieldDelegate, APIHolder {
     }
 }
 
+protocol CreateGameControllerDelegate: AnyObject {
+    func gameControllerDidCreateGame(_ controller: CreateGameController)
+}
+
 class CreateGameController: UIViewController, UserSearchControllerDelegate, APIHolder {
     private let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
@@ -106,6 +110,7 @@ class CreateGameController: UIViewController, UserSearchControllerDelegate, APIH
     )
     
     var api: MarsAPIService?
+    weak var delegate: CreateGameControllerDelegate?
     
     @IBOutlet var textControllers: [UserSearchController]!
     @IBOutlet var createButton: UIButton!
