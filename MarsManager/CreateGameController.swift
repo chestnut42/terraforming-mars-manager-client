@@ -43,33 +43,47 @@ class UserSearchController: NSObject, UISearchTextFieldDelegate, APIHolder {
     }
     
     @IBAction func textDidChange(sender: UITextField) {
+        Task {
+            await reloadSuggestions()
+        }
+    }
+    
+    func reloadSuggestions() async {
         let reqID = UUID()
         currentRequestID = reqID
         
-        Task {
-            guard let term = sender.text else {
+        guard let term = textField.text else {
+            return
+        }
+        guard let api = self.api else {
+            return
+        }
+        
+        do {
+            let users = try await api.search(for: term)
+            
+            // If no new requests were made - drop this response
+            if currentRequestID != reqID {
                 return
             }
-            guard let api = self.api else {
+            // If editing was finished - drop this response
+            if !textField.isFirstResponder {
                 return
             }
             
-            do {
-                let resp = try await api.search(for: term)
-                
-                // Check if no new requests were made
-                if currentRequestID != reqID {
-                    return
-                }
-                
-                let suggestions = resp.users.map { u in u.nickname }
-                lastSuggestions = suggestions
-                textField.searchSuggestions = suggestions.map({ n in
-                    return UISearchSuggestionItem(localizedSuggestion: n)
-                })
-            } catch let error {
-                logger.error("search call error: \(error)")
-            }
+            let suggestions = users.map { u in u.nickname }
+            lastSuggestions = suggestions
+            textField.searchSuggestions = suggestions.map({ n in
+                return UISearchSuggestionItem(localizedSuggestion: n)
+            })
+        } catch let error {
+            logger.error("search call error: \(error)")
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        Task {
+            await reloadSuggestions()
         }
     }
     

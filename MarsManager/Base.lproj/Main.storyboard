@@ -36,7 +36,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <activityIndicatorView opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="fzh-WJ-4qK">
+                            <activityIndicatorView hidden="YES" opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="fzh-WJ-4qK">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
@@ -68,18 +68,72 @@
         <!--Profile-->
         <scene sceneID="cAm-MG-RLp">
             <objects>
-                <viewController id="3iN-Ub-YUo" sceneMemberID="viewController">
+                <viewController id="3iN-Ub-YUo" customClass="ProfileController" customModule="MarsManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hRJ-Ed-UEv">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ozq-E6-WTn">
+                                <rect key="frame" x="16" y="86.666666666666671" width="76" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V6A-Bs-KIe">
+                                <rect key="frame" x="108" y="80" width="269" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7O8-9Q-R41">
+                                <rect key="frame" x="0.0" y="146" width="393" height="216"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="3iN-Ub-YUo" id="rXd-W7-K8u"/>
+                                    <outlet property="delegate" destination="3iN-Ub-YUo" id="G5k-gn-LkQ"/>
+                                </connections>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efQ-wY-tE5">
+                                <rect key="frame" x="16" y="394" width="361" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Save"/>
+                                <connections>
+                                    <action selector="saveButtonPressedWithSender:" destination="3iN-Ub-YUo" eventType="touchUpInside" id="6hr-oI-uGP"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="lyV-PT-4cX">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="iec-Pd-Bzq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="lyV-PT-4cX" firstAttribute="leading" secondItem="iec-Pd-Bzq" secondAttribute="leading" id="0AI-s1-xEi"/>
+                            <constraint firstItem="ozq-E6-WTn" firstAttribute="leading" secondItem="iec-Pd-Bzq" secondAttribute="leading" constant="16" id="239-h2-wnN"/>
+                            <constraint firstItem="iec-Pd-Bzq" firstAttribute="trailing" secondItem="V6A-Bs-KIe" secondAttribute="trailing" constant="16" id="75X-pl-WPU"/>
+                            <constraint firstItem="efQ-wY-tE5" firstAttribute="top" secondItem="7O8-9Q-R41" secondAttribute="bottom" constant="32" id="8IU-wK-pe9"/>
+                            <constraint firstItem="iec-Pd-Bzq" firstAttribute="trailing" secondItem="efQ-wY-tE5" secondAttribute="trailing" constant="16" id="FTD-3i-4sW"/>
+                            <constraint firstItem="lyV-PT-4cX" firstAttribute="trailing" secondItem="iec-Pd-Bzq" secondAttribute="trailing" id="Guf-Lt-uwp"/>
+                            <constraint firstItem="lyV-PT-4cX" firstAttribute="top" secondItem="iec-Pd-Bzq" secondAttribute="top" id="HpR-Iq-XY4"/>
+                            <constraint firstItem="V6A-Bs-KIe" firstAttribute="top" secondItem="iec-Pd-Bzq" secondAttribute="top" constant="80" id="Iqv-NP-ZXl"/>
+                            <constraint firstAttribute="bottom" secondItem="lyV-PT-4cX" secondAttribute="bottom" id="T5Z-Nn-ha8"/>
+                            <constraint firstItem="7O8-9Q-R41" firstAttribute="leading" secondItem="iec-Pd-Bzq" secondAttribute="leading" id="lXr-QR-aRU"/>
+                            <constraint firstItem="V6A-Bs-KIe" firstAttribute="leading" secondItem="ozq-E6-WTn" secondAttribute="trailing" constant="16" id="mw2-JF-SH8"/>
+                            <constraint firstItem="V6A-Bs-KIe" firstAttribute="centerY" secondItem="ozq-E6-WTn" secondAttribute="centerY" id="pa2-yc-RC0"/>
+                            <constraint firstItem="7O8-9Q-R41" firstAttribute="trailing" secondItem="iec-Pd-Bzq" secondAttribute="trailing" id="tTq-cy-Mko"/>
+                            <constraint firstItem="7O8-9Q-R41" firstAttribute="top" secondItem="V6A-Bs-KIe" secondAttribute="bottom" constant="32" id="wKL-gP-ue0"/>
+                            <constraint firstItem="efQ-wY-tE5" firstAttribute="leading" secondItem="iec-Pd-Bzq" secondAttribute="leading" constant="16" id="zsJ-Mc-VJo"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" image="person.crop.circle" catalog="system" id="Vb4-pb-30r"/>
+                    <connections>
+                        <outlet property="activityView" destination="lyV-PT-4cX" id="Wad-Ba-hj9"/>
+                        <outlet property="colorPicker" destination="7O8-9Q-R41" id="uET-xt-6f7"/>
+                        <outlet property="nicknameField" destination="V6A-Bs-KIe" id="bPo-fb-2m4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IUf-kE-6BR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2294" y="404"/>
+            <point key="canvasLocation" x="2293.8931297709923" y="403.52112676056339"/>
         </scene>
         <!--Games-->
         <scene sceneID="CMy-1h-MUt">
