@@ -113,7 +113,7 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
         if var holder = segue.destination as? APIHolder {
             holder.api = self.api
         }
-        if var gameCreate = segue.destination as? CreateGameController {
+        if let gameCreate = segue.destination as? CreateGameController {
             gameCreate.delegate = self
         }
     }
