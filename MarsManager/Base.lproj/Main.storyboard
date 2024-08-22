@@ -219,7 +219,7 @@
                                     <outlet property="delegate" destination="TC0-M9-hn8" id="WMv-5g-9DI"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Player 3" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i76-vj-smK" customClass="UISearchTextField">
+                            <textField hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Player 3" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i76-vj-smK" customClass="UISearchTextField">
                                 <rect key="frame" x="16" y="130" width="294" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="kqg-7S-9Gt"/>
@@ -231,7 +231,7 @@
                                     <outlet property="delegate" destination="ebs-7z-oGf" id="1vU-Ui-oik"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Player 4" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VxA-Sr-Cts" customClass="UISearchTextField">
+                            <textField hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Player 4" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VxA-Sr-Cts" customClass="UISearchTextField">
                                 <rect key="frame" x="16" y="180" width="294" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="9di-oO-PBP"/>
@@ -243,7 +243,7 @@
                                     <outlet property="delegate" destination="tmk-lP-vOc" id="IAj-Oc-joR"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Player 5" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C7r-ll-TFI" customClass="UISearchTextField">
+                            <textField hidden="YES" opaque="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Player 5" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C7r-ll-TFI" customClass="UISearchTextField">
                                 <rect key="frame" x="16" y="230" width="294" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="OH1-nH-VBJ"/>
