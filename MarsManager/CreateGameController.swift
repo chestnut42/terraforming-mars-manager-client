@@ -151,18 +151,19 @@ class CreateGameController: UIViewController, UserSearchControllerDelegate, APIH
     }
     
     private func shouldEnableCreate() -> Bool {
-        var hasAtLeastOneUser = false
+        var userList: [String] = []
         for c in textControllers {
             if !c.isEnabled {
                 continue
             }
             
-            if c.currentUser == nil {
+            guard let cu = c.currentUser else {
                 // User is nil for enabled player
                 return false
             }
-            hasAtLeastOneUser = true
+            userList.append(cu)
         }
-        return hasAtLeastOneUser
+        let userSet: Set = Set(userList)
+        return userList.count >= 1 && userList.count == userSet.count
     }
 }

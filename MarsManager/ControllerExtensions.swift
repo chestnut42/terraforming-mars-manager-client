@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 import os
 
-extension UIViewController {
+protocol AsyncProcessor {
+    func processAsyc(_ closure: @escaping () async throws -> Void)
+}
+
+extension UIViewController: AsyncProcessor {
     public func processAsyc(_ closure: @escaping () async throws -> Void) {
         Task {
             do {
