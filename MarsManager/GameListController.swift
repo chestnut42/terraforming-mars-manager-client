@@ -43,7 +43,7 @@ class CreateGameCell: UITableViewCell {
     }
 }
 
-class GameListController: UITableViewController, APIHolder, GameViewCellDelegate, CreateGameCellDelegate {
+class GameListController: UITableViewController, APIHolder, GameViewCellDelegate, CreateGameCellDelegate, CreateGameControllerDelegate {
     var api: MarsAPIService?
     var data: GameListData = GameListData.Message("loading") {
         didSet {
@@ -66,13 +66,35 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
     }
     
     func playButtonPressed(on cell: GameViewCell) {
-        if let url = cell.game?.playURL {
+        if let url = cell.game?.playUrl {
             UIApplication.shared.open(url)
         }
     }
     
     func createButtonPressed(on cell: CreateGameCell) {
         self.performSegue(withIdentifier: "OpenCreateGame", sender: nil)
+    }
+    
+    func gameControllerDidCreateGame(_ controller: CreateGameController) {
+        self.dismiss(animated: true)
+        Task {
+            await reloadData()
+        }
+    }
+    
+    private func reloadData() async {
+        guard let api = self.api else {
+            return
+        }
+        
+        self.data = GameListData.Message("loading")
+        do {
+            let games = try await api.getGames()
+            self.data = GameListData.List(games.games)
+        } catch let error {
+            logger.error("error loading: \(error.localizedDescription)")
+            self.data = GameListData.Message("error: \(error.localizedDescription)")
+        }
     }
     
     // MARK: - View Controller cycle
@@ -82,26 +104,17 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        guard let api = self.api else {
-            return
-        }
-        
-        self.data = GameListData.Message("loading")
-        
         Task {
-            do {
-                let games = try await api.getGames()
-                self.data = GameListData.List(games.games)
-            } catch let error {
-                logger.error("error loading: \(error.localizedDescription)")
-                self.data = GameListData.Message("error: \(error.localizedDescription)")
-            }
+            await reloadData()
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if var holder = segue.destination as? APIHolder {
             holder.api = self.api
+        }
+        if let gameCreate = segue.destination as? CreateGameController {
+            gameCreate.delegate = self
         }
     }
 

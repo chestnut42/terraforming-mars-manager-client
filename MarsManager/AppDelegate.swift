@@ -9,7 +9,7 @@ import UIKit
 import os
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     private let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: AppDelegate.self)
@@ -32,6 +32,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         self.api = api
+    }
+    
+    // MARK: UNUserNotificationCenterDelegate
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        return [.list, .banner, .badge]
     }
 
     // MARK: UISceneSession Lifecycle

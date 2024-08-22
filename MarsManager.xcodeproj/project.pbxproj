@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		750FA9BC2C734EC3005F9941 /* GameListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750FA9BB2C734EC3005F9941 /* GameListController.swift */; };
 		750FA9BE2C74ADD6005F9941 /* CreateGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750FA9BD2C74ADD6005F9941 /* CreateGameController.swift */; };
+		750FA9C22C7689C5005F9941 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750FA9C12C7689C5005F9941 /* ModelTests.swift */; };
 		75741F1D2C69E2D9008C07D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75741F1C2C69E2D9008C07D7 /* AppDelegate.swift */; };
 		75741F1F2C69E2D9008C07D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75741F1E2C69E2D9008C07D7 /* SceneDelegate.swift */; };
 		75741F212C69E2D9008C07D7 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75741F202C69E2D9008C07D7 /* SignInViewController.swift */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		750FA9BB2C734EC3005F9941 /* GameListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameListController.swift; sourceTree = "<group>"; };
 		750FA9BD2C74ADD6005F9941 /* CreateGameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGameController.swift; sourceTree = "<group>"; };
+		750FA9C12C7689C5005F9941 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		75741F192C69E2D9008C07D7 /* MarsManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarsManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75741F1C2C69E2D9008C07D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75741F1E2C69E2D9008C07D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				75E793C32C6D236A0068BB90 /* ErrorsTests.swift */,
+				750FA9C12C7689C5005F9941 /* ModelTests.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75E793C42C6D236A0068BB90 /* ErrorsTests.swift in Sources */,
+				750FA9C22C7689C5005F9941 /* ModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
