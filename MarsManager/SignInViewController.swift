@@ -80,7 +80,7 @@ class SignInViewController:
             defer { self.activityView.isHidden = true }
             
             let api = MarsAPIService(baseUrl: baseURL, token: token)
-            let user = try await api.login()
+            _ = try await api.login()
             self.api = api
             
             NotificationCenter.default.post(name: .apiCreated, object: nil, userInfo: ["api": api])

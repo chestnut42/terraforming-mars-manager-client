@@ -118,11 +118,6 @@ protocol CreateGameControllerDelegate: AnyObject {
 }
 
 class CreateGameController: UIViewController, UserSearchControllerDelegate, APIHolder {
-    private let logger = Logger(
-        subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: CreateGameController.self)
-    )
-    
     var api: MarsAPIService?
     weak var delegate: CreateGameControllerDelegate?
     
@@ -139,18 +134,15 @@ class CreateGameController: UIViewController, UserSearchControllerDelegate, APIH
     }
     
     @IBAction func createButtonPressed(sender: UIButton) {
-        guard let api = self.api else {
-            return
-        }
-        
-        let players = textControllers.compactMap({ u in u.currentUser })
-        Task {
-            do {
-                _ = try await api.createGame(players: players)
-            } catch let error {
-                logger.error("failed to create a game: \(error.localizedDescription)")
+        self.processAsyc {
+            guard let api = self.api else {
+                throw APIError.undefined(message: "no api object is set")
             }
-            self.presentingViewController?.dismiss(animated: true)
+            
+            let players = self.textControllers.compactMap({ u in u.currentUser })
+            _ = try await api.createGame(players: players)
+            
+            self.delegate?.gameControllerDidCreateGame(self)
         }
     }
     
