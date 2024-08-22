@@ -90,7 +90,7 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
         self.data = GameListData.Message("loading")
         do {
             let games = try await api.getGames()
-            self.data = GameListData.List(games.games)
+            self.data = GameListData.List(games)
         } catch let error {
             logger.error("error loading: \(error.localizedDescription)")
             self.data = GameListData.Message("error: \(error.localizedDescription)")

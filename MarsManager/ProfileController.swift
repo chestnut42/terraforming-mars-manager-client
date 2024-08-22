@@ -18,11 +18,34 @@ class ProfileController: UIViewController, APIHolder, UITextFieldDelegate, UIPic
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        activityView.isHidden = true
+        self.processAsyc {
+            self.activityView.isHidden = false
+            defer { self.activityView.isHidden = true }
+            
+            guard let api = self.api else {
+                throw APIError.undefined(message: "no api object is set")
+            }
+            
+            let user = try await api.getMe()
+            self.nicknameField.text = user.nickname
+            self.colorPicker.selectRow(Color.allCases.firstIndex(of: user.color) ?? 0, inComponent: 0, animated: true)
+        }
     }
     
     @IBAction func saveButtonPressed(sender: Any) {
-        
+        self.processAsyc {
+            self.activityView.isHidden = false
+            defer { self.activityView.isHidden = true }
+            
+            guard let api = self.api else {
+                throw APIError.undefined(message: "no api object is set")
+            }
+            
+            let user = try await api.updateMe(nickname: self.nicknameField.text ?? "",
+                                              color: Color.allCases[self.colorPicker.selectedRow(inComponent: 0)])
+            self.nicknameField.text = user.nickname
+            self.colorPicker.selectRow(Color.allCases.firstIndex(of: user.color) ?? 0, inComponent: 0, animated: true)
+        }
     }
     
     // MARK: UITextFieldDelegate
