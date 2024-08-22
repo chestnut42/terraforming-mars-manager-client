@@ -13,16 +13,12 @@ import os
 }
 
 class UserSearchController: NSObject, UISearchTextFieldDelegate, APIHolder {
-    private let logger = Logger(
-        subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: UserSearchController.self)
-    )
-    
     private var lastSuggestions: [String] = []
     private var currentRequestID: UUID = UUID()
     private var user: String?
     
     var api: MarsAPIService?
+    weak var processor: (any AsyncProcessor & AnyObject)?
     
     var currentUser: String? { get {
         if textField.isHidden {
@@ -49,35 +45,33 @@ class UserSearchController: NSObject, UISearchTextFieldDelegate, APIHolder {
     }
     
     func reloadSuggestions() async {
-        let reqID = UUID()
-        currentRequestID = reqID
-        
         guard let term = textField.text else {
             return
         }
-        guard let api = self.api else {
-            return
-        }
         
-        do {
-            let users = try await api.search(for: term)
+        self.processor!.processAsyc {
+            let reqID = UUID()
+            self.currentRequestID = reqID
             
+            guard let api = self.api else {
+                throw APIError.undefined(message: "no api object is set")
+            }
+            
+            let users = try await api.search(for: term)
             // If no new requests were made - drop this response
-            if currentRequestID != reqID {
+            if self.currentRequestID != reqID {
                 return
             }
             // If editing was finished - drop this response
-            if !textField.isFirstResponder {
+            if !self.textField.isFirstResponder {
                 return
             }
             
             let suggestions = users.map { u in u.nickname }
-            lastSuggestions = suggestions
-            textField.searchSuggestions = suggestions.map({ n in
+            self.lastSuggestions = suggestions
+            self.textField.searchSuggestions = suggestions.map({ n in
                 return UISearchSuggestionItem(localizedSuggestion: n)
             })
-        } catch let error {
-            logger.error("search call error: \(error)")
         }
     }
     
@@ -129,6 +123,7 @@ class CreateGameController: UIViewController, UserSearchControllerDelegate, APIH
         
         for tc in textControllers {
             tc.api = api
+            tc.processor = self
         }
         createButton.isEnabled = shouldEnableCreate()
     }
