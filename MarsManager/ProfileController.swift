@@ -33,6 +33,7 @@ class ProfileController: UIViewController, APIHolder, UITextFieldDelegate, UIPic
     }
     
     @IBAction func saveButtonPressed(sender: Any) {
+        self.nicknameField.resignFirstResponder()
         self.processAsyc {
             self.activityView.isHidden = false
             defer { self.activityView.isHidden = true }
