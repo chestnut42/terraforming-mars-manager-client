@@ -72,12 +72,10 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
     
     func gameControllerDidCreateGame(_ controller: CreateGameController) {
         self.dismiss(animated: true)
-        Task {
-            await reloadData()
-        }
+        reloadData()
     }
     
-    private func reloadData() async {
+    private func reloadData() {
         self.processAsyc {
             guard let api = self.api else {
                 throw APIError.undefined(message: "no api object is set")
@@ -94,16 +92,24 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
         }
     }
     
+    @objc func appDidBecomeActive(_ notification: Notification) {
+        reloadData()
+    }
+    
     // MARK: - View Controller cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        Task {
-            await reloadData()
-        }
+        reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
