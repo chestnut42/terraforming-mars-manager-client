@@ -15,9 +15,7 @@ class ProfileController: UIViewController, APIHolder, UITextFieldDelegate, UIPic
     @IBOutlet var colorPicker: UIPickerView!
     @IBOutlet var activityView: UIActivityIndicatorView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    private func reloadData() {
         self.processAsyc {
             self.activityView.isHidden = false
             defer { self.activityView.isHidden = true }
@@ -30,6 +28,24 @@ class ProfileController: UIViewController, APIHolder, UITextFieldDelegate, UIPic
             self.nicknameField.text = user.nickname
             self.colorPicker.selectRow(Color.allCases.firstIndex(of: user.color) ?? 0, inComponent: 0, animated: true)
         }
+    }
+    
+    @objc func appDidBecomeActive(_ notification: Notification) {
+        reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        reloadData()
     }
     
     @IBAction func saveButtonPressed(sender: Any) {
