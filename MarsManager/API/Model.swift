@@ -20,6 +20,12 @@ enum Color: String, Codable, CaseIterable {
     case bronze = "BRONZE"
 }
 
+enum GameStatus: String, Codable, CaseIterable {
+    case inProgress = "GAME_STATUS_IN_PROGRESS"
+    case awaitsInput = "GAME_STATUS_AWAITS_INPUT"
+    case finished = "GAME_STATUS_FINISHED"
+}
+
 struct User: Codable, Equatable {
     let id: String
     let nickname: String
@@ -29,7 +35,7 @@ struct User: Codable, Equatable {
 struct Game: Codable, Equatable {
     let playUrl: URL
     let playersCount: Int
-    let awaitsInput: Bool
+    let status: GameStatus
 }
 
 struct LoginRequest: Codable, Equatable {}

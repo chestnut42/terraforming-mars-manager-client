@@ -156,7 +156,8 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
                 let g = games[indexPath.row]
                 gameCell.game = g
                 gameCell.label.text = "\(g.playersCount) players"
-                gameCell.awaitsInputImage.isHidden = !g.awaitsInput
+                gameCell.awaitsInputImage.isHidden = g.status != GameStatus.awaitsInput
+                gameCell.backgroundColor = (g.status == GameStatus.finished) ? UIColor.lightGray : UIColor.clear
             }
         }
         if let createCell = cell as? CreateGameCell {
