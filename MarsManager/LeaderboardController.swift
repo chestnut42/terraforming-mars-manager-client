@@ -23,12 +23,12 @@ class LeaderboardController: UITableViewController, APIHolder {
     
     
     private func reloadData() {
+        self.data = [User(id: "", nickname: "loading", color: .blue, elo: 0)]
         self.processAsyc {
             guard let api = self.api else {
                 throw APIError.undefined(message: "no api object is set")
             }
             
-            self.data = nil
             do {
                 self.data = try await api.getLeaderboard()
             } catch let error {
