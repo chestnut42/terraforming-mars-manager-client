@@ -30,6 +30,7 @@ struct User: Codable, Equatable {
     let id: String
     let nickname: String
     let color: Color
+    let elo: Int
 }
 
 struct Game: Codable, Equatable {
@@ -79,4 +80,8 @@ struct UpdateMeRequest: Codable, Equatable {
 
 struct UpdateMeResponse: Codable, Equatable {
     let user: User
+}
+
+struct GetLeaderboardResponse: Codable, Equatable {
+    let users: [User]
 }

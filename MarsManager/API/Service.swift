@@ -105,6 +105,18 @@ struct MarsAPIService {
         return try await process(request: request, as: UpdateMeResponse.self).user
     }
     
+    func getLeaderboard() async throws -> [User] {
+        guard let url = URL(string: "/manager/api/v1/leaderboard", relativeTo: baseUrl) else {
+            throw APIError.undefined(message: "can't create a URL")
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        return try await process(request: request, as: GetLeaderboardResponse.self).users
+    }
+    
     func process<T: Decodable>(request: URLRequest, as type: T.Type) async throws -> T {
         let (data, resp) = try await URLSession.shared.data(for: request)
         if let httpResp = resp as? HTTPURLResponse, httpResp.statusCode != 200 {
