@@ -31,16 +31,22 @@ class SignInViewController:
     // View Controller stuff
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAuthorizationFailed(_:)), name: .authorizationFailed, object: nil)
+        
         
         activityView.isHidden = true
-        
+
         let appleButton = ASAuthorizationAppleIDButton()
         appleButton.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchUpInside)
         var f = self.signInBaseView.frame
         f.origin = .zero
         appleButton.frame = f
         self.signInBaseView.addSubview(appleButton)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .authorizationFailed, object: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -61,6 +67,11 @@ class SignInViewController:
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
+    }
+    
+    @objc
+    func handleAuthorizationFailed(_ notification: Notification) {
+        self.dismiss(animated: true)
     }
 
     
