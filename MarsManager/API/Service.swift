@@ -65,12 +65,12 @@ struct MarsAPIService {
         _ = try await process(request: request, as: UpdateDeviceTokenResponse.self)
     }
     
-    func createGame(players: [String]) async throws {
-        guard let url = URL(string: "/manager/api/v1/game", relativeTo: baseUrl) else {
+    func createGame(request: CreateGameRequest) async throws {
+        guard let url = URL(string: "/manager/api/v2/game", relativeTo: baseUrl) else {
             throw APIError.undefined(message: "can't create a URL")
         }
         
-        let bodyData = try JSONEncoder().encode(CreateGameRequest(players: players))
+        let bodyData = try JSONEncoder().encode(request)
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = bodyData

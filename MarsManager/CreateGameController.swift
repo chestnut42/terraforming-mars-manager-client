@@ -111,12 +111,17 @@ protocol CreateGameControllerDelegate: AnyObject {
     func gameControllerDidCreateGame(_ controller: CreateGameController)
 }
 
-class CreateGameController: UIViewController, UserSearchControllerDelegate, APIHolder {
+class CreateGameController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UserSearchControllerDelegate, APIHolder {
     var api: MarsAPIService?
     weak var delegate: CreateGameControllerDelegate?
     
     @IBOutlet var textControllers: [UserSearchController]!
     @IBOutlet var createButton: UIButton!
+    @IBOutlet var boardSelector: UIPickerView!
+    @IBOutlet var corporateEraToggle: UISwitch!
+    @IBOutlet var preludeToggle: UISwitch!
+    @IBOutlet var venusNextToggle: UISwitch!
+    @IBOutlet var solarPhaseToggle: UISwitch!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,8 +139,14 @@ class CreateGameController: UIViewController, UserSearchControllerDelegate, APIH
                 throw APIError.undefined(message: "no api object is set")
             }
             
-            let players = self.textControllers.compactMap({ u in u.currentUser })
-            _ = try await api.createGame(players: players)
+            _ = try await api.createGame(request: CreateGameRequest(
+                players: self.textControllers.compactMap({ u in u.currentUser }),
+                board: Board.allCases[self.boardSelector.selectedRow(inComponent: 0)],
+                corporateEra: self.corporateEraToggle.isOn,
+                prelude: self.preludeToggle.isOn,
+                venusNext: self.venusNextToggle.isOn,
+                solarPhase: self.venusNextToggle.isOn
+            ))
             
             self.delegate?.gameControllerDidCreateGame(self)
         }
@@ -160,5 +171,19 @@ class CreateGameController: UIViewController, UserSearchControllerDelegate, APIH
         }
         let userSet: Set = Set(userList)
         return userList.count >= 1 && userList.count == userSet.count
+    }
+    
+    // MARK: UIPickerViewDataSource
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return Board.allCases.count
+    }
+    
+    // MARK: UIPickerViewDelegate
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return Board.allCases[row].rawValue
     }
 }

@@ -26,6 +26,13 @@ enum GameStatus: String, Codable, CaseIterable {
     case finished = "GAME_STATUS_FINISHED"
 }
 
+enum Board: String, Codable, CaseIterable {
+    case random = "RANDOM"
+    case tharsis = "THARSIS"
+    case hellas = "HELLAS"
+    case elysium = "ELYSIUM"
+}
+
 struct User: Codable, Equatable {
     let id: String
     let nickname: String
@@ -59,6 +66,11 @@ struct SearchResponse: Codable, Equatable {
 
 struct CreateGameRequest: Codable, Equatable {
     let players: [String]
+    let board: Board
+    let corporateEra: Bool
+    let prelude: Bool
+    let venusNext: Bool
+    let solarPhase: Bool
 }
 
 struct CreateGameResponse: Codable, Equatable {}
