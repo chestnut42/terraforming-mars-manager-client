@@ -16,8 +16,8 @@ class ProfileController: UIViewController, APIHolder, UITextFieldDelegate, UIPic
     @IBOutlet var activityView: UIActivityIndicatorView!
     
     private func reloadData() {
+        self.activityView.isHidden = false
         self.processAsyc {
-            self.activityView.isHidden = false
             defer { self.activityView.isHidden = true }
             
             guard let api = self.api else {

@@ -71,12 +71,12 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
     }
     
     private func reloadData() {
+        self.data = GameListData.Message("loading")
         self.processAsyc {
             guard let api = self.api else {
                 throw APIError.undefined(message: "no api object is set")
             }
             
-            self.data = GameListData.Message("loading")
             do {
                 let games = try await api.getGames()
                 self.data = GameListData.List(games)
