@@ -16,8 +16,8 @@ class ProfileController: UIViewController, APIHolder, UITextFieldDelegate, UIPic
     @IBOutlet var activityView: UIActivityIndicatorView!
     
     private func reloadData() {
+        self.activityView.isHidden = false
         self.processAsyc {
-            self.activityView.isHidden = false
             defer { self.activityView.isHidden = true }
             
             guard let api = self.api else {
@@ -44,7 +44,7 @@ class ProfileController: UIViewController, APIHolder, UITextFieldDelegate, UIPic
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         reloadData()
     }
     

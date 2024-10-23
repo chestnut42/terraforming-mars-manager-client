@@ -70,18 +70,13 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
         self.performSegue(withIdentifier: "OpenCreateGame", sender: nil)
     }
     
-    func gameControllerDidCreateGame(_ controller: CreateGameController) {
-        self.dismiss(animated: true)
-        reloadData()
-    }
-    
     private func reloadData() {
+        self.data = GameListData.Message("loading")
         self.processAsyc {
             guard let api = self.api else {
                 throw APIError.undefined(message: "no api object is set")
             }
             
-            self.data = GameListData.Message("loading")
             do {
                 let games = try await api.getGames()
                 self.data = GameListData.List(games)
@@ -108,7 +103,7 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         reloadData()
     }
     
@@ -119,6 +114,13 @@ class GameListController: UITableViewController, APIHolder, GameViewCellDelegate
         if let gameCreate = segue.destination as? CreateGameController {
             gameCreate.delegate = self
         }
+    }
+    
+    // MARK: - CreateGameControllerDelegate
+    
+    func gameControllerDidCreateGame(_ controller: CreateGameController) {
+        self.dismiss(animated: true)
+        reloadData()
     }
 
     // MARK: - Table view data source
