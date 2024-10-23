@@ -53,7 +53,7 @@ class LeaderboardController: UITableViewController, APIHolder {
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         reloadData()
     }
     
