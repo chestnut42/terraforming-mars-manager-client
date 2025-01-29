@@ -122,6 +122,7 @@ class CreateGameController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBOutlet var preludeToggle: UISwitch!
     @IBOutlet var venusNextToggle: UISwitch!
     @IBOutlet var solarPhaseToggle: UISwitch!
+    @IBOutlet var coloniesToggle: UISwitch!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,7 +146,8 @@ class CreateGameController: UIViewController, UIPickerViewDelegate, UIPickerView
                 corporateEra: self.corporateEraToggle.isOn,
                 prelude: self.preludeToggle.isOn,
                 venusNext: self.venusNextToggle.isOn,
-                solarPhase: self.venusNextToggle.isOn
+                solarPhase: self.venusNextToggle.isOn,
+                colonies: self.coloniesToggle.isOn
             ))
             
             self.delegate?.gameControllerDidCreateGame(self)

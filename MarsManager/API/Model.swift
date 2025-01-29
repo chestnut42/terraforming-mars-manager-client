@@ -71,6 +71,7 @@ struct CreateGameRequest: Codable, Equatable {
     let prelude: Bool
     let venusNext: Bool
     let solarPhase: Bool
+    let colonies: Bool
 }
 
 struct CreateGameResponse: Codable, Equatable {}
