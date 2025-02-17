@@ -24,9 +24,20 @@ class SignInViewController:
     ASAuthorizationControllerPresentationContextProviding,
     ASAuthorizationControllerDelegate
 {
+    let lastUserTokenKey = "signin.user.last-token"
+    
+    
     @IBOutlet var signInBaseView: UIView!
     @IBOutlet var activityView: UIActivityIndicatorView!
     var api: MarsAPIService?
+    var token: String? {
+        get {
+            return UserDefaults.standard.string(forKey: lastUserTokenKey)
+        }
+        set(newToken) {
+            UserDefaults.standard.set(newToken, forKey: lastUserTokenKey)
+        }
+    }
     
     // View Controller stuff
     override func viewDidLoad() {
@@ -43,6 +54,15 @@ class SignInViewController:
         f.origin = .zero
         appleButton.frame = f
         self.signInBaseView.addSubview(appleButton)
+        
+        if let token = self.token {
+            self.activityView.isHidden = false
+            self.processAsyc {
+                defer { self.activityView.isHidden = true }
+                
+                try await self.loginToAPI(with: token)
+            }
+        }
     }
     
     deinit {
@@ -81,30 +101,12 @@ class SignInViewController:
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        self.activityView.isHidden = false
         self.processAsyc {
-            let token = try self.parseIdentityToken(authorization: authorization)
-            guard let baseURL = URL(string: "https://mars.blockthem.xyz") else {
-                throw APIError.undefined(message: "can't create base url")
-            }
-            
-            self.activityView.isHidden = false
             defer { self.activityView.isHidden = true }
             
-            let api = MarsAPIService(baseUrl: baseURL, token: token)
-            _ = try await api.login()
-            self.api = api
-            
-            NotificationCenter.default.post(name: .apiCreated, object: nil, userInfo: ["api": api])
-            
-            // Register for notifications
-            let granted = try await UNUserNotificationCenter.current().requestAuthorization(options: [
-                .alert, .badge, .sound
-            ])
-            if granted {
-                UIApplication.shared.registerForRemoteNotifications()
-            }
-            
-            self.performSegue(withIdentifier: "StartToTab", sender: nil)
+            let token = try self.parseIdentityToken(authorization: authorization)
+            try await self.loginToAPI(with: token)
         }
     }
 
@@ -116,6 +118,29 @@ class SignInViewController:
     
     
     // Methods
+    func loginToAPI(with token: String) async throws -> Void {
+        guard let baseURL = URL(string: "https://mars.blockthem.xyz") else {
+            throw APIError.undefined(message: "can't create base url")
+        }
+        
+        let api = MarsAPIService(baseUrl: baseURL, token: token)
+        _ = try await api.login()
+        self.api = api
+        self.token = token
+        
+        NotificationCenter.default.post(name: .apiCreated, object: nil, userInfo: ["api": api])
+        
+        // Register for notifications
+        let granted = try await UNUserNotificationCenter.current().requestAuthorization(options: [
+            .alert, .badge, .sound
+        ])
+        if granted {
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+        
+        self.performSegue(withIdentifier: "StartToTab", sender: nil)
+    }
+    
     func parseIdentityToken(authorization: ASAuthorization) throws  -> String {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
