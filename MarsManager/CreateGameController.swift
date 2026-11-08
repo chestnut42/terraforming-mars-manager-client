@@ -146,7 +146,7 @@ class CreateGameController: UIViewController, UIPickerViewDelegate, UIPickerView
                 corporateEra: self.corporateEraToggle.isOn,
                 prelude: self.preludeToggle.isOn,
                 venusNext: self.venusNextToggle.isOn,
-                solarPhase: self.venusNextToggle.isOn,
+                solarPhase: self.solarPhaseToggle.isOn,
                 colonies: self.coloniesToggle.isOn
             ))
             
